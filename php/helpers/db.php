@@ -1,11 +1,12 @@
 <?php
-echo __DIR__;
-include("../helpers/readEnv.php");
 
-$host = 'db';// compose.yaml daki service name
-$dbname = 'portakal';
-$user = 'sogan';
-$passwd = 'sarimsak';
+include("readEnv.php");
+
+$host = getEnvVar('DB_HOST');
+$dbname = getEnvVar('DB_NAME');
+$user = getEnvVar('DB_USER');
+$passwd= getEnvVar('DB_PASSWORD');
+
 
  try{
 
