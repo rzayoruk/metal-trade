@@ -12,5 +12,9 @@ include("../helpers/db.php");
 </head>
 <body>
     public index.php
+
+
+    <a href="login.php">Login</a><br>
+    <a href="signup.php">Sign Up</a>
 </body>
 </html>
