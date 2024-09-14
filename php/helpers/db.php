@@ -12,10 +12,7 @@ $passwd= getEnvVar('DB_PASSWORD');
 
     $dsn = "pgsql:host=$host;dbname=$dbname";
     $pdo = new PDO($dsn, $user, $passwd);
-
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    echo "Connection is successful.";
 
  }catch(PDOException $e){
 
