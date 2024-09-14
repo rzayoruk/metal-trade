@@ -1,6 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
 
 require "../../helpers/db.php";
 function recordFormInputsToSession($post)
@@ -18,7 +17,14 @@ function isAnySignupInputEmpty($name, $surname, $email, $passwd, $passwdconf)
         return false;
     }
 }
-
+function isAnyLoginInputEmpty($email, $passwd)
+{
+    if (empty($email) || empty($passwd)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 function isNameOrSurnameInvalid($name, $surname)
 {
     if (!preg_match("/^[a-zA-Z]+$/", $name) || !preg_match("/^[a-zA-Z]+$/", $surname)) {
@@ -37,6 +43,8 @@ function isEmailInvalid($email)
     }
 }
 
+
+
 function passwdMatch($passwd, $passwdconf)
 {
     if ($passwd === $passwdconf) {
@@ -46,39 +54,58 @@ function passwdMatch($passwd, $passwdconf)
     }
 }
 
-function isPasswdInvalid($passwd){
-    if(!preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,32}$/', $passwd)){
+function isPasswdInvalid($passwd)
+{
+    if (!preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,32}$/', $passwd)) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
-function isEmailExist($email){
+function isEmailExist($email)
+{
     global $pdo;
     $sql = "SELECT * FROM users WHERE email = ?;";
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute([$email]);
     $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    if(!empty($user)){
+
+    if (!empty($user)) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
-function createUser($name, $surname, $email, $passwd){
+function createUser($name, $surname, $email, $passwd)
+{
     global $pdo;
-    $sql= "INSERT INTO users (name, surname, email, password, status, type)
+    $sql = "INSERT INTO users (name, surname, email, password, status, type)
             VALUES (?,?,?,?,1,1);";
     $stmt = $pdo->prepare($sql);
-    $hashed = password_hash($passwd,PASSWORD_BCRYPT);
-    $stmt->execute([$name,$surname,$email,$hashed]);
+    $hashed = password_hash($passwd, PASSWORD_BCRYPT);
+    $stmt->execute([$name, $surname, $email, $hashed]);
     $sql = "SELECT type from users WHERE email = ?;";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$email]);
     $type = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $type;
+}
+function userLogin($email, $passwd)
+{
+    global $pdo;
+    $sql = "SELECT name, type, password FROM users WHERE email = ?;";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && password_verify($passwd, $user["password"])) {
+        return [
+            'name' => $user["name"],
+            'type' => $user["type"]
+        ];
+    }
+    return false;
 }

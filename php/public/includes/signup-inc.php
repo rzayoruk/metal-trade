@@ -3,12 +3,12 @@ session_start();
 include "functions-inc.php";
 
 
-
 if (!isset($_POST["name"]) || !isset($_POST["surname"]) || !isset($_POST["email"]) || !isset($_POST["passwd"]) || !isset($_POST["passwdconf"])) {
     $error = "All form fields are required.";
     header("Location:../signup.php?error=emptyfields");
     exit();
 }
+
 
 $_POST = array_map('trim', $_POST);
 
@@ -18,44 +18,37 @@ $email = $_POST["email"];
 $passwd = $_POST["passwd"];
 $passwdconf = $_POST["passwdconf"];
 
-
 if (isAnySignupInputEmpty($name, $surname, $email, $passwd, $passwdconf)) {
-    recordFormInputsToSession($_POST);
-    header("Location:../signup.php?error=emptyfields");
+    header("Location:../signup.php?error=emptyfields&name=$name&surname=$surname&email=$email");
     exit();
 }
 
+
 if (isNameOrSurnameInvalid($name, $surname)) {
-    recordFormInputsToSession($_POST);
-    header("Location:../signup.php?error=invalidname");
+    header("Location:../signup.php?error=invalidname&name=$name&surname=$surname&email=$email");
     exit();
 }
 
 if (isEmailInvalid($email)) {
-    recordFormInputsToSession($_POST);
-    header("Location:../signup.php?error=invalidemail");
+    header("Location:../signup.php?error=invalidemail&name=$name&surname=$surname&email=$email");
     exit();
 }
 
 if (!passwdMatch($passwd, $passwdconf)) {
-    recordFormInputsToSession($_POST);
-    header("Location:../signup.php?error=nopasswordmatch");
+    header("Location:../signup.php?error=nopasswordmatch&name=$name&surname=$surname&email=$email");
     exit();
 }
 
 if (isPasswdInvalid($passwd)) {
-    recordFormInputsToSession($_POST);
-    header("Location:../signup.php?error=invalidpasswd");
+    header("Location:../signup.php?error=invalidpasswd&name=$name&surname=$surname&email=$email");
     exit();
 }
 
 if (isEmailExist($email)) {
-    recordFormInputsToSession($_POST);
-    header("Location:../signup.php?error=existedemail");
+    header("Location:../signup.php?error=existedemail&name=$name&surname=$surname&email=$email");
     exit();
 }
 
 $_SESSION["type"] = createUser($name, $surname, $email, $passwd);
 $_SESSION["name"] = $name;
 header("Location:../index.php");
-
