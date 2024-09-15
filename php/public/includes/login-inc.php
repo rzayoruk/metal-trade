@@ -4,11 +4,16 @@ session_start();
 if (isset($_SESSION["name"])) {
     header("Location:../index.php");
 }
+//die(__DIR__);
 include "functions-inc.php";
+
+if (!$_POST["csrf_token"] == $_SESSION["csrf_token"]) {
+    header("Location:../login.php?error=csrf");
+    exit();
+}
 
 
 if (!isset($_POST["email"]) || !isset($_POST["passwd"])) {
-    $error = "All form fields are required.";
     header("Location:../login.php?error=emptyfields");
     exit();
 }

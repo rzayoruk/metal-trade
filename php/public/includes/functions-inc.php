@@ -1,12 +1,14 @@
 <?php
 
+require __DIR__."/../../helpers/db.php";
 
-require "../../helpers/db.php";
-function recordFormInputsToSession($post)
+
+function generateCsrfToken()
 {
-    $_SESSION["name"] = $post["name"];
-    $_SESSION["surname"] = $post["surname"];
-    $_SESSION["email"] = $post["email"];
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
 }
 
 function isAnySignupInputEmpty($name, $surname, $email, $passwd, $passwdconf)
@@ -109,3 +111,4 @@ function userLogin($email, $passwd)
     }
     return false;
 }
+

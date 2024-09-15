@@ -8,12 +8,8 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && docker-php-ext-install pgsql pdo pdo_pgsql
 
-# php.ini dosyasında gerekli uzantıları etkinleştir
-# RUN sed -i 's/;extension=pdo_pgsql/extension=pdo_pgsql/' /usr/local/etc/php/php.ini
-# RUN sed -i 's/;extension=pgsql/extension=pgsql/' /usr/local/etc/php/php.ini
 
-# Çalışma dizinini belirle
-WORKDIR /var/www/html/public
+WORKDIR /var/www/html
 
 # PHP-FPM'i başlat
 CMD ["php-fpm"]

@@ -1,12 +1,14 @@
 <?php
 
-include("../helpers/httpflags.php");
+include __DIR__."/../helpers/httpflags.php";
+include __DIR__."/includes/functions-inc.php";
+
 setCookieFlags();
 session_start();
 
-if (isset($_SESSION["name"])) {
-    header("Location:index.php");
-}
+$csrfToken = generateCsrfToken();
+var_dump($csrfToken);
+
 ?>
 
 <!DOCTYPE html>
@@ -21,8 +23,9 @@ if (isset($_SESSION["name"])) {
 <body>
     <h1>login</h1>
     <?php if (isset($_GET["error"])) {
-
-        if ($_GET["error"] == "emptyfields") {
+        if ($_GET["error"] == "csrf") {
+            echo "CSRF token is necessary.";
+        } else if ($_GET["error"] == "emptyfields") {
             echo "All form fields are required.";
         } else if ($_GET["error"] == "invalidemail") {
             echo "invalid email format";
@@ -33,6 +36,7 @@ if (isset($_SESSION["name"])) {
         }
     } ?>
     <form action="includes/login-inc.php" method="post">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>">
         <input type="email" name="email" placeholder="mail..." value="<?= isset($_GET["email"])   ? $_GET["email"] : '' ?>"><br><br>
         <input type="password" name="passwd" placeholder="Password..."><br><br>
         <button type="submit">login</button>
