@@ -1,5 +1,9 @@
 <?php
+
+include("../helpers/httpflags.php");
+setCookieFlags();
 session_start();
+
 if (isset($_SESSION["name"])) {
     header("Location:index.php");
 }

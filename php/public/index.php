@@ -1,6 +1,8 @@
 <?php
-session_start();
 include("../helpers/db.php");
+include("../helpers/httpflags.php");
+setCookieFlags();
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">

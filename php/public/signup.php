@@ -1,4 +1,6 @@
 <?php
+include("../helpers/httpflags.php");
+setCookieFlags();
 session_start();
 if (isset($_SESSION["name"])) {
     header("Location:index.php");
@@ -9,7 +11,7 @@ if (isset($_SESSION["name"])) {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup page</title>
 </head>
@@ -28,7 +30,7 @@ if (isset($_SESSION["name"])) {
             echo "passwords aren't match.";
         } else if ($_GET["error"] == "invalidpasswd") {
             echo "Password must consist of 8 character and also include at least 1 lower, 1 upper, 1 digit and 1 special character.";
-        } else if($_GET["error"] == "existedemail"){
+        } else if ($_GET["error"] == "existedemail") {
             echo
             "This email has been recorded already.";
         }
