@@ -1,11 +1,16 @@
 <?php
 session_start();
-include "functions-inc.php";
+include __DIR__ . '/functions-inc.php';
 
 
 if (!isset($_POST["name"]) || !isset($_POST["surname"]) || !isset($_POST["email"]) || !isset($_POST["passwd"]) || !isset($_POST["passwdconf"])) {
     $error = "All form fields are required.";
     header("Location:../signup.php?error=emptyfields");
+    exit();
+}
+
+if (!isset($_POST["csrf_token"]) || !$_POST["csrf_token"] == $_SESSION["csrf_token"]) {
+    header("Location:../signup.php?error=csrf");
     exit();
 }
 

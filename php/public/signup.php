@@ -1,10 +1,17 @@
 <?php
 include("../helpers/httpflags.php");
+include __DIR__ . '/includes/functions-inc.php';
 setCookieFlags();
 session_start();
+
+
+
 if (isset($_SESSION["name"])) {
     header("Location:index.php");
 }
+
+
+$csrfToken = generateCsrfToken();
 ?>
 
 <!DOCTYPE html>
@@ -19,8 +26,9 @@ if (isset($_SESSION["name"])) {
 <body>
     <h1>SignUp</h1>
     <?php if (isset($_GET["error"])) {
-
-        if ($_GET["error"] == "emptyfields") {
+        if ($_GET["error"] == "csrf") {
+            echo "CSRF is necessary.";
+        } else if ($_GET["error"] == "emptyfields") {
             echo "All form fields are required.";
         } else if ($_GET["error"] == "invalidname") {
             echo "name and surname must consist of only letters (a-zA-Z).";
@@ -36,6 +44,7 @@ if (isset($_SESSION["name"])) {
         }
     } ?>
     <form action="includes/signup-inc.php" method="post">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>">
         <input type="text" name="name" placeholder="name..." value="<?= isset($_GET["name"])   ? $_GET["name"] : '' ?>"><br><br>
         <input type="text" name="surname" placeholder="surname..." value="<?= isset($_GET["surname"])   ? $_GET["surname"] : '' ?>"><br><br>
         <input type="email" name="email" placeholder="mail..." value="<?= isset($_GET["surname"])   ? $_GET["surname"] : '' ?>"><br><br>

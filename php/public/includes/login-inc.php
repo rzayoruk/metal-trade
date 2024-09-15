@@ -7,7 +7,8 @@ if (isset($_SESSION["name"])) {
 //die(__DIR__);
 include "functions-inc.php";
 
-if (!$_POST["csrf_token"] == $_SESSION["csrf_token"]) {
+
+if (!isset($_POST["csrf_token"]) || !$_POST["csrf_token"] == $_SESSION["csrf_token"]) {
     header("Location:../login.php?error=csrf");
     exit();
 }

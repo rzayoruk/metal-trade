@@ -7,7 +7,7 @@ setCookieFlags();
 session_start();
 
 $csrfToken = generateCsrfToken();
-var_dump($csrfToken);
+
 
 ?>
 
