@@ -85,7 +85,7 @@ function createUser($name, $surname, $email, $passwd)
 {
     global $pdo;
     $sql = "INSERT INTO users (name, surname, email, password, status, type)
-            VALUES (?,?,?,?,1,1);";
+            VALUES (?,?,?,?, true ,1);";
     $stmt = $pdo->prepare($sql);
     $hashed = password_hash($passwd, PASSWORD_BCRYPT);
     $stmt->execute([$name, $surname, $email, $hashed]);

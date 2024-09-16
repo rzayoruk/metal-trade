@@ -46,8 +46,8 @@ $csrfToken = generateCsrfToken();
     } ?>
     <form action="includes/login-inc.php" method="post" id="myForm">
         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>">
-        <input type="email" name="email" placeholder="mail..." value="<?= isset($_GET["email"])   ? $_GET["email"] : '' ?>"><br><br>
-        <input type="password" name="passwd" placeholder="Password..."><br><br>
+        <input type="email" name="email" placeholder="mail..." required value="<?= isset($_GET["email"])   ? $_GET["email"] : '' ?>" /><br><br>
+        <input type="password" name="passwd" placeholder="Password..." required /><br><br>
         <button class="g-recaptcha" type="submit"
             data-sitekey="6Lck-kQqAAAAAJbKa7fMJ64GmKpIyeVxlppZgjw7"
             data-callback='onSubmit'

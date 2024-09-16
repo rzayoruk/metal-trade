@@ -18,6 +18,9 @@ services:
    - ./:/var/www/html
   networks:
    - webnet
+  depends_on:
+   - db
+
 
  db:
   image: postgres:15

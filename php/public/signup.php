@@ -44,12 +44,12 @@ $csrfToken = generateCsrfToken();
         }
     } ?>
     <form action="includes/signup-inc.php" method="post">
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>">
-        <input type="text" name="name" placeholder="name..." value="<?= isset($_GET["name"])   ? $_GET["name"] : '' ?>"><br><br>
-        <input type="text" name="surname" placeholder="surname..." value="<?= isset($_GET["surname"])   ? $_GET["surname"] : '' ?>"><br><br>
-        <input type="email" name="email" placeholder="mail..." value="<?= isset($_GET["surname"])   ? $_GET["surname"] : '' ?>"><br><br>
-        <input type="password" name="passwd" placeholder="Password..."><br><br>
-        <input type="password" name="passwdconf" placeholder="PasswordConfirm..."><br><br>
+        <input required type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>">
+        <input required type="text" name="name" placeholder="name..." value="<?= isset($_GET["name"])   ? $_GET["name"] : '' ?>"><br><br>
+        <input required type="text" name="surname" placeholder="surname..." value="<?= isset($_GET["surname"])   ? $_GET["surname"] : '' ?>"><br><br>
+        <input required type="email" name="email" placeholder="mail..." value="<?= isset($_GET["surname"])   ? $_GET["surname"] : '' ?>"><br><br>
+        <input required type="password" name="passwd" placeholder="Password..."><br><br>
+        <input required type="password" name="passwdconf" placeholder="PasswordConfirm..."><br><br>
         <button type="submit">Sign up</button>
     </form>
 
