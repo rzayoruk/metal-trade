@@ -9,6 +9,8 @@ services:
    - "80:80"
   networks:
    - webnet
+  depends_on:
+   - backend-phpfpm
 
  backend-phpfpm:
   build:

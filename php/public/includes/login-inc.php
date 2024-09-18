@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = userLogin($email, $passwd);
         if ($user) {
             $_SESSION["name"] = $user["name"];
-            $_SESSION["type"] = $user["type"];
+            $_SESSION["roleId"] = $user["roleId"];
             return     header("Location:../index.php");
         } else {
             header("Location:../login.php?error=login");

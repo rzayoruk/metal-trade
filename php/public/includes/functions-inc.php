@@ -84,7 +84,7 @@ function isEmailExist($email)
 function createUser($name, $surname, $email, $passwd)
 {
     global $pdo;
-    $sql = "INSERT INTO users (name, surname, email, password, status, type)
+    $sql = "INSERT INTO users (name, surname, email, password, status, role_id)
             VALUES (?,?,?,?, true ,1);";
     $stmt = $pdo->prepare($sql);
     $hashed = password_hash($passwd, PASSWORD_BCRYPT);
@@ -92,13 +92,13 @@ function createUser($name, $surname, $email, $passwd)
     $sql = "SELECT type from users WHERE email = ?;";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$email]);
-    $type = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $type;
+    $roleId = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $roleId;
 }
 function userLogin($email, $passwd)
 {
     global $pdo;
-    $sql = "SELECT name, type, password FROM users WHERE email = ?;";
+    $sql = "SELECT name, role_id, password FROM users WHERE email = ?;";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -106,7 +106,7 @@ function userLogin($email, $passwd)
     if ($user && password_verify($passwd, $user["password"])) {
         return [
             'name' => $user["name"],
-            'type' => $user["type"]
+            'roleId' => $user["role_id"]
         ];
     }
     return false;

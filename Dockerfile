@@ -7,6 +7,8 @@ FROM php:8.1-fpm
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     && docker-php-ext-install pgsql pdo pdo_pgsql
+# in order to create php.ini for phpcli :)
+RUN ln -s /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini 
 
 
 WORKDIR /var/www/html

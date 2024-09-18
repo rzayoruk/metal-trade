@@ -1,3 +1,3 @@
-INSERT INTO roles (type) VALUES ('member'), ('admin') 
+INSERT INTO roles (role) VALUES ('member'), ('admin') 
 ON CONFLICT DO NOTHING;
 

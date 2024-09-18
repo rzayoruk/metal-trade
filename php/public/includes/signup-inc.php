@@ -54,6 +54,6 @@ if (isEmailExist($email)) {
     exit();
 }
 
-$_SESSION["type"] = createUser($name, $surname, $email, $passwd);
+$_SESSION["roleId"] = createUser($name, $surname, $email, $passwd);
 $_SESSION["name"] = $name;
 header("Location:../index.php");

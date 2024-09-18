@@ -7,7 +7,7 @@ global $pdo;
 $seedName = $argv[1] ?? null;
 
 if (!$seedName) {
-    echo "declare the seeder name please. like php seederRunner.php users => ";
+    echo "declare the seeder name please. like => php seederRunner.php users";
     exit();
 }
 
@@ -23,4 +23,5 @@ try {
     echo $seedName . " seeder is run succesfuly.";
 } catch (PDOException $e) {
     echo $seedName . " seeder is failed.";
+    echo $e->getMessage();
 }
