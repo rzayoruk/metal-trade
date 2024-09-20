@@ -1,18 +1,29 @@
 <?php
-
+include __DIR__ . "/../../helpers/readEnv.php";
 include "functions-inc.php";
+include __DIR__ . "/../../../autoloader.php";
+
+use App\Csrf\CsrfToken;
 
 
-$send = false;
 $isRobot = false;
+
+$token = null;
+$url = 'https://www.google.com/recaptcha/api/siteverify';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
+
     if (isset($_POST["g-recaptcha-response"])) {
         $token = $_POST["g-recaptcha-response"];
-        $url = 'https://www.google.com/recaptcha/api/siteverify';
     }
+
+    if ($token === null) {
+        header("Location:../login.php?error=csrf");
+        exit();
+    }
+
     $secret = getEnvVar('CAPTCHA_SECRET');
     $data = array(
         'secret' => $secret,
@@ -41,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //die(__DIR__);
 
 
-        if (!isset($_POST["csrf_token"]) || !$_POST["csrf_token"] == $_SESSION["csrf_token"]) {
+        if (!isset($_POST["csrf_token"]) || !CsrfToken::validate($_POST["csrf_token"])) {
             header("Location:../login.php?error=csrf");
             exit();
         }
@@ -81,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-if($isRobot){
+if ($isRobot) {
     header("Location:../login.php?error=captcha");
     exit();
 }

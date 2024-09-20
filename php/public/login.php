@@ -1,12 +1,15 @@
 <?php
-
 include __DIR__ . "/../helpers/httpflags.php";
 include __DIR__ . "/includes/functions-inc.php";
+require __DIR__ . "/../../autoloader.php";
+
+use App\Csrf\CsrfToken;
+
+$db = new App\Models\Database;
 
 setCookieFlags();
 session_start();
-
-$csrfToken = generateCsrfToken();
+$csrfToken = CsrfToken::generate(); // public static methods could be reach via class name witout generating an object.
 
 
 ?>
@@ -45,7 +48,8 @@ $csrfToken = generateCsrfToken();
         }
     } ?>
     <form action="includes/login-inc.php" method="post" id="myForm">
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>">
+        <input type="hidden" name="csrf_token" value="<?php if ($csrfToken): echo htmlspecialchars($csrfToken);
+                                                        endif; ?>">
         <input type="email" name="email" placeholder="mail..." required value="<?= isset($_GET["email"])   ? $_GET["email"] : '' ?>" /><br><br>
         <input type="password" name="passwd" placeholder="Password..." required /><br><br>
         <button class="g-recaptcha" type="submit"

@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__."/../../helpers/db.php";
+//require __DIR__."/../../helpers/db.php";
 
 
 function generateCsrfToken()
@@ -9,7 +9,7 @@ function generateCsrfToken()
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     return $_SESSION['csrf_token'];
-}
+}   
 
 function isAnySignupInputEmpty($name, $surname, $email, $passwd, $passwdconf)
 {
@@ -111,4 +111,3 @@ function userLogin($email, $passwd)
     }
     return false;
 }
-
