@@ -1,6 +1,6 @@
 <?php
 
-
+include "functions-inc.php";
 
 
 $send = false;
@@ -8,13 +8,14 @@ $isRobot = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+
     if (isset($_POST["g-recaptcha-response"])) {
         $token = $_POST["g-recaptcha-response"];
         $url = 'https://www.google.com/recaptcha/api/siteverify';
     }
-
+    $secret = getEnvVar('CAPTCHA_SECRET');
     $data = array(
-        'secret' => '6Lck-kQqAAAAAH2J5vdjlSB_-zTzwN1nqx4XG6WM',
+        'secret' => $secret,
         'response' => $token
     );
 
@@ -38,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location:../index.php");
         }
         //die(__DIR__);
-        include "functions-inc.php";
 
 
         if (!isset($_POST["csrf_token"]) || !$_POST["csrf_token"] == $_SESSION["csrf_token"]) {

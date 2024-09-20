@@ -31,7 +31,7 @@ $csrfToken = generateCsrfToken();
     <h1>login</h1>
     <?php if (isset($_GET["error"])) {
         if ($_GET["error"] == "captcha") {
-            echo "You are robot.";
+            echo "Hi Mr. Robot.";
         } else if ($_GET["error"] == "csrf") {
             echo "CSRF token is necessary.";
         } else if ($_GET["error"] == "emptyfields") {
@@ -49,7 +49,7 @@ $csrfToken = generateCsrfToken();
         <input type="email" name="email" placeholder="mail..." required value="<?= isset($_GET["email"])   ? $_GET["email"] : '' ?>" /><br><br>
         <input type="password" name="passwd" placeholder="Password..." required /><br><br>
         <button class="g-recaptcha" type="submit"
-            data-sitekey="6Lck-kQqAAAAAJbKa7fMJ64GmKpIyeVxlppZgjw7"
+            data-sitekey="6Ld3AEoqAAAAAG4kq5yVJM2wZfYBweqsWnVrpZet"
             data-callback='onSubmit'
             data-action='submit'>Submit</button>
     </form>
