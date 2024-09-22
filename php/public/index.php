@@ -1,6 +1,8 @@
 <?php
-include("../helpers/db.php");
-include("../helpers/httpflags.php");
+require __DIR__ . "/../../autoloader.php";
+include "../helpers/httpflags.php" ;
+
+
 setCookieFlags();
 session_start();
 ?>

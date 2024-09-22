@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Models;
-
 use PDO, PDOException;
+use App\Helpers\envReader;
 
 class Database
 {
@@ -10,13 +10,10 @@ class Database
 
     public function __construct()
     {
-        include __DIR__ . "/../../php/helpers/readEnv.php";
-
-
-        $host = getEnvVar('DB_HOST');
-        $dbname = getEnvVar('DB_NAME');
-        $user = getEnvVar('DB_USER');
-        $passwd = getEnvVar('DB_PASSWORD');
+        $host = envReader::getEnvVar('DB_HOST');
+        $dbname = envReader::getEnvVar('DB_NAME');
+        $user = envReader::getEnvVar('DB_USER');
+        $passwd = envReader::getEnvVar('DB_PASSWORD');
 
 
         try {

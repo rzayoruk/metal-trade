@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Csrf;
+namespace App\Security\Csrf;
 
 class CsrfToken
 {

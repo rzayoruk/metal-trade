@@ -1,11 +1,14 @@
 <?php
 
-include("readEnv.php");
+//include("readEnv.php");
+include __DIR__ . "/../../autoloader.php";
 
-$host = getEnvVar('DB_HOST');
-$dbname = getEnvVar('DB_NAME');
-$user = getEnvVar('DB_USER');
-$passwd = getEnvVar('DB_PASSWORD');
+$env = new \App\Helpers\envReader;
+
+$host = $env::getEnvVar('DB_HOST');
+$dbname = $env::getEnvVar('DB_NAME');
+$user = $env::getEnvVar('DB_USER');
+$passwd = $env::getEnvVar('DB_PASSWORD');
 
 
 try {

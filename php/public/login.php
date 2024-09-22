@@ -3,13 +3,11 @@ include __DIR__ . "/../helpers/httpflags.php";
 include __DIR__ . "/includes/functions-inc.php";
 require __DIR__ . "/../../autoloader.php";
 
-use App\Csrf\CsrfToken;
-
 $db = new App\Models\Database;
 
 setCookieFlags();
 session_start();
-$csrfToken = CsrfToken::generate(); // public static methods could be reach via class name witout generating an object.
+$csrfToken = App\Security\Csrf\CsrfToken::generate(); // public static methods could be reach via class name witout generating an object.
 
 
 ?>

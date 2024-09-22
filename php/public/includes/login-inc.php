@@ -3,7 +3,9 @@ include __DIR__ . "/../../helpers/readEnv.php";
 include "functions-inc.php";
 include __DIR__ . "/../../../autoloader.php";
 
-use App\Csrf\CsrfToken;
+use App\Security\Csrf\CsrfToken;
+use App\Helpers\envReader;
+
 
 
 $isRobot = false;
@@ -24,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    $secret = getEnvVar('CAPTCHA_SECRET');
+    $secret = envReader::getEnvVar('CAPTCHA_SECRET');
     $data = array(
         'secret' => $secret,
         'response' => $token
