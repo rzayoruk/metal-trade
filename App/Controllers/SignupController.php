@@ -52,6 +52,10 @@ class SignupController extends User
             header("Location:../signup.php?error=nopasswordmatch&name=$this->name&surname=$this->surname&email=$this->email");
             exit();
         }
+        if ($this->isPasswdInvalid()) {
+            header("Location:../signup.php?error=invalidpasswd&name=$this->name&surname=$this->surname&email=$this->email");
+            exit();
+        }
 
         $_SESSION["roleId"] = $this->createUser($this->name, $this->surname, $this->email, $this->passwd);
         $_SESSION["name"] = $this->name;
@@ -84,7 +88,14 @@ class SignupController extends User
             return false;
         }
     }
-
+    private function isPasswdInvalid()
+    {
+        if (!preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,32}$/', $this->passwd)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     private function passwdMatch()
     {

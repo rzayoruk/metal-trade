@@ -4,6 +4,7 @@ include __DIR__ . "/../../../autoloader.php";
 
 use App\Security\Csrf\CsrfToken;
 use App\Helpers\envReader;
+use App\Controllers\LoginController;
 
 
 
@@ -59,10 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
 
-        if (!isset($_POST["email"]) || !isset($_POST["passwd"])) {
-            header("Location:../login.php?error=emptyfields");
-            exit();
-        }
 
 
         $_POST = array_map('trim', $_POST);
@@ -70,22 +67,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST["email"];
         $passwd = $_POST["passwd"];
 
-        if (isAnyLoginInputEmpty($email, $passwd)) {
-            header("Location:../login.php?error=emptyfields&email=$email");
-            exit();
-        }
-        if (isEmailInvalid($email)) {
-            header("Location:../login.php?error=invalidemail&email=$email");
-            exit();
-        }
 
-        $user = userLogin($email, $passwd);
+
+        $loginAttempt = new LoginController($email, $passwd);
+        $user = $loginAttempt->loginUser();
+
+        
         if ($user) {
             $_SESSION["name"] = $user["name"];
             $_SESSION["roleId"] = $user["roleId"];
-            return     header("Location:../index.php");
+            header("Location:../index.php");
+            exit;
         } else {
             header("Location:../login.php?error=login");
+            exit;
         }
     } else {
         //echo json_encode(array('success' => false, "msg" => "You are a robot!", "response" => $response));
