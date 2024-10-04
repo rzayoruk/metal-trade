@@ -1,6 +1,6 @@
 <?php
 include("../helpers/httpflags.php");
-include __DIR__ . '/includes/functions-inc.php';
+include __DIR__ . "/../../autoloader.php";
 setCookieFlags();
 session_start();
 
@@ -11,7 +11,7 @@ if (isset($_SESSION["name"])) {
 }
 
 
-$csrfToken = generateCsrfToken();
+$csrfToken = App\Security\Csrf\CsrfToken::generate();
 ?>
 
 <!DOCTYPE html>

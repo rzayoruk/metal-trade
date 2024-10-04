@@ -3,7 +3,7 @@ include __DIR__ . "/../helpers/httpflags.php";
 include __DIR__ . "/includes/functions-inc.php";
 require __DIR__ . "/../../autoloader.php";
 
-$db = new App\Models\Database;
+$db = new App\Helpers\Database;
 
 setCookieFlags();
 session_start();

@@ -1,5 +1,4 @@
 <?php
-include __DIR__ . "/../../helpers/readEnv.php";
 include "functions-inc.php";
 include __DIR__ . "/../../../autoloader.php";
 

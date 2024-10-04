@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Helpers;
+
+include __DIR__ . "/../../autoloader.php";
+
 use PDO, PDOException;
 use App\Helpers\envReader;
 
@@ -19,8 +22,8 @@ class Database
         try {
 
             $dsn = "pgsql:host=$host;dbname=$dbname";
-            $pdo = new PDO($dsn, $user, $passwd);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo = new PDO($dsn, $user, $passwd);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "db connection is successfull<br>";
         } catch (PDOException $e) {
 
@@ -28,7 +31,7 @@ class Database
         }
     }
 
-    public function getPdo()
+    protected function getPdo()
     {
         return $this->pdo;
     }
