@@ -1,17 +1,16 @@
 <?php
+include __DIR__ . "/../helpers/httpflags.php";
+require __DIR__ . "/../../autoloader.php";
+setCookieFlags();
 session_start();
 if (isset($_SESSION["name"])) {
     header("Location: ../index.php");
     exit;
 }
-include __DIR__ . "/../helpers/httpflags.php";
-include __DIR__ . "/includes/functions-inc.php";
-require __DIR__ . "/../../autoloader.php";
+
 
 $db = new App\Helpers\Database;
 
-setCookieFlags();
-session_start();
 $csrfToken = App\Security\Csrf\CsrfToken::generate(); // public static methods could be reach via class name witout generating an object.
 
 
