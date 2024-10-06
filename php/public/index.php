@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . "/../../autoloader.php";
-include "../helpers/httpflags.php" ;
+include "../helpers/httpflags.php";
 
 
 setCookieFlags();
@@ -20,6 +20,7 @@ session_start();
 
     <?php if (isset($_SESSION["name"])): ?>
         Welcome <?= $_SESSION["name"] ?>
+        <a href="account.php">view my account</a>
         <a href="includes/logout.php">logout</a>
     <?php else : ?>
         <a href="login.php">Login</a><br>

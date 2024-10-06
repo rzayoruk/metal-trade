@@ -50,7 +50,7 @@ class User extends Database
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($passwd, $user["password"])) {
-                return ['name' => $user["name"], 'roleId' => $user["role_id"]];
+            return ['name' => $user["name"], 'roleId' => $user["role_id"]];
         }
         return false;
     }

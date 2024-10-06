@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (isset($_SESSION["name"])) {
+    header("Location: ../index.php");
+    exit;
+}
 include("../helpers/httpflags.php");
 include __DIR__ . "/../../autoloader.php";
 setCookieFlags();

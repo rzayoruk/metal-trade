@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (isset($_SESSION["name"])) {
+    header("Location: ../index.php");
+    exit;
+}
 include __DIR__ . "/../helpers/httpflags.php";
 include __DIR__ . "/includes/functions-inc.php";
 require __DIR__ . "/../../autoloader.php";
