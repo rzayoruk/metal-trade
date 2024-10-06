@@ -9,12 +9,6 @@ if (isset($_SESSION["name"])) {
 }
 
 
-
-if (isset($_SESSION["name"])) {
-    header("Location:index.php");
-}
-
-
 $csrfToken = App\Security\Csrf\CsrfToken::generate();
 ?>
 

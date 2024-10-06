@@ -9,9 +9,8 @@ if (isset($_SESSION["name"])) {
 }
 
 
-$db = new App\Helpers\Database;
 
-$csrfToken = App\Security\Csrf\CsrfToken::generate(); // public static methods could be reach via class name witout generating an object.
+$csrfToken = App\Security\Csrf\CsrfToken::generate(); // public static methods could be reach via class name without generating an object.
 
 
 ?>

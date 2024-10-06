@@ -39,6 +39,7 @@ $user = $loginAttempt->loginUser();
 
 
 if ($user) {
+    $_SESSION["id"] = $user["id"];
     $_SESSION["name"] = $user["name"];
     $_SESSION["roleId"] = $user["roleId"];
     header("Location:../index.php");
@@ -47,58 +48,3 @@ if ($user) {
     header("Location:../login.php?error=login");
     exit;
 }
-//die(__DIR__);
-
-
-
-
-// if (isset($_POST["g-recaptcha-response"])) {
-//     $token = $_POST["g-recaptcha-response"];
-// }
-
-// if ($token === null) {
-//     header("Location:../login.php?error=csrf");
-//     exit();
-// }
-
-// $secret = envReader::getEnvVar('CAPTCHA_SECRET');
-// $data = array(
-//     'secret' => $secret,
-//     'response' => $token
-// );
-
-// $options = array(
-//     'http' => array(
-//         'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
-//         'method' => 'POST',
-//         'content' => http_build_query($data)
-//     )
-// );
-
-// $context = stream_context_create($options);
-// $result = file_get_contents($url, false, $context);
-// $response = json_decode($result);
-
-
-
-
-// if ($response->success && $response->score >= 0.5) {
-//     echo json_encode(array('success' => true, "msg"=>"You are not a robot!", "response"=>$response));die();
-
-
-
-
-
-
-
-
-// } else {
-//     echo json_encode(array('success' => false, "msg" => "You are a robot!", "response" => $response));
-//     $isRobot = true;
-// }
-
-
-// if ($isRobot) {
-//     header("Location:../login.php?error=captcha");
-//     exit();
-// }
