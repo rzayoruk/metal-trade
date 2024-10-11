@@ -14,8 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 if (!isset($_POST["csrf_token"]) || !CsrfToken::validate($_POST["csrf_token"])) {
-    // echo "helloday";
-    // exit;
     header("Location:../login.php?error=csrf");
     exit();
 }

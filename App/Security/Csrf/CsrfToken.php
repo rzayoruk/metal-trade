@@ -8,9 +8,8 @@ class CsrfToken
     {
         if (empty($_SESSION["csrf_token"])) {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-        } else {
-            return $_SESSION["csrf_token"];
         }
+        return $_SESSION["csrf_token"];
     }
 
     public static function validate($token)
