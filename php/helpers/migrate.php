@@ -4,10 +4,10 @@
 require __DIR__ . "/../../autoloader.php";
 
 use App\Helpers\Database;
+$pdo = (new Database)->getPdo();
 
 $migrationName = $argv[1] ?? null;
 
-$pdo = (new Database)->getPdo();
 if (!$migrationName) { // if there is no specific migration then migrate all table.
     $dir = __DIR__ . "/../../App/migrations/";
     $files = scandir($dir);

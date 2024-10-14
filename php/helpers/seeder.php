@@ -1,17 +1,20 @@
 <?php
-require "db.php";
+require __DIR__ . "/../../autoloader.php";
 
-global $pdo;
+
+use App\Helpers\Database;
+
+$pdo = (new Database)->getPdo();
 
 
 $seedName = $argv[1] ?? null;
 
 if (!$seedName) {
-    echo "declare the seeder name please. like => php seederRunner.php users";
+    echo "declare the seeder name please. like => php seeder.php users";
     exit();
 }
 
-$seedFile = __DIR__ . "/../seeder/" . $seedName . "_seed.sql";
+$seedFile = __DIR__ . "/../../App/seeder/" . $seedName . "_seed.sql";
 
 if (!file_exists($seedFile)) {
     echo "seeder file could not be found.";
