@@ -37,4 +37,22 @@ class UpdateInfo extends Database
 
         return $isOK;
     }
+
+    protected function updatePassword($oldPasswd, $newPasswd)
+    {
+        $sql = "SELECT password FROM users WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$_SESSION["id"]]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($oldPasswd, $user["password"])) {
+
+            $hashed = password_hash($newPasswd, PASSWORD_BCRYPT);
+            $sql = "UPDATE users SET password = ? WHERE id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $isOK = $stmt->execute([$hashed, $_SESSION["id"]]);
+
+            return $isOK;
+        }
+    }
 }

@@ -5,6 +5,7 @@ include __DIR__ . "/../../../autoloader.php";
 session_start();
 
 use App\Controllers\UpdateInfos;
+use App\Models\UpdateInfo;
 
 if (!isset($_POST["csrf_token"]) || !$_POST["csrf_token"] == $_SESSION["csrf_token"]) {
     header("Location:../signup.php?error=csrf");
@@ -15,15 +16,12 @@ if (!isset($_POST["csrf_token"]) || !$_POST["csrf_token"] == $_SESSION["csrf_tok
 if (!isset($_SESSION["name"])) {
     header("Location:../index.php");
 }
+
 $_POST = array_map('trim', $_POST);
 
-$name = $_POST["name"];
-$surname = $_POST["surname"];
-$email= $_POST["email"];
+$oldPasswd = $_POST["oldPasswd"];
+$newPasswd = $_POST["newPasswd"];
+$newPasswdConf = $_POST["newPasswdConf"];
 
 $updater = new UpdateInfos($_SESSION["id"]);
-$updater->updateInfoStages($name, $surname, $email);
-
-$_SESSION["name"] = $name;
-$_SESSION["surname"] = $surname;
-$_SESSION["email"] = $email;
+$updater->updatePasswdStages($oldPasswd, $newPasswd, $newPasswdConf);

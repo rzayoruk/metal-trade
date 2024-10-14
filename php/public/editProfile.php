@@ -49,9 +49,6 @@ $csrfToken = App\Security\Csrf\CsrfToken::generate();
             case "false":
                 echo "updated successfully.";
                 break;
-            default:
-                echo "Something went wrong.";
-                break;
         }
     }
     echo var_dump($_SESSION);
@@ -65,13 +62,35 @@ $csrfToken = App\Security\Csrf\CsrfToken::generate();
     </form>
 
     <h2>Edit Password</h2>
-    <form action="editPasswd-inc.php" method="POST">
+    <form action="includes/editPasswd-inc.php" method="POST">
+        <?php
+        if (isset($_GET["error"])) {
+
+            switch ($_GET["error"]) {
+                case "emptyPasswd":
+                    echo "password will be filled. <br><br>";
+                    break;
+                case "noPasswdMatch":
+                    echo "new passwords aren't match. <br><br>";
+                    break;
+                case "invalidPasswd":
+                    echo "Password must consist of 8 character and also include at least 1 lower, 1 upper, 1 digit and 1 special character. <br><br>";
+                    break;
+                case "wrongPasswd":
+                    echo "Current password is wrong <br><br>";
+                    break;
+                case "successUpdatePass":
+                    echo "updated successfully. <br><br>";
+                    break;
+            }
+        }
+        ?>
 
         <input required type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>">
 
-        <input required type="password" name="oldpasswd" placeholder="Old Password"><br><br>
-        <input required type="password" name="newpasswd" placeholder="New Password"><br><br>
-        <input required type="password" name="newpasswdconf" placeholder="New Password Confirm"><br><br>
+        <input required type="password" name="oldPasswd" placeholder="Old Password"><br><br>
+        <input required type="password" name="newPasswd" placeholder="New Password"><br><br>
+        <input required type="password" name="newPasswdConf" placeholder="New Password Confirm"><br><br>
         <button type="submit">Update</button>
     </form>
 </body>
