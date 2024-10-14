@@ -1,12 +1,15 @@
 <?php
 
-require __DIR__ . "/db.php";
-global $pdo;
+
+require __DIR__ . "/../../autoloader.php";
+
+use App\Helpers\Database;
 
 $migrationName = $argv[1] ?? null;
 
+$pdo = (new Database)->getPdo();
 if (!$migrationName) { // if there is no specific migration then migrate all table.
-    $dir = __DIR__ . "/../migrations/";
+    $dir = __DIR__ . "/../../App/migrations/";
     $files = scandir($dir);
     $files = array_diff($files, array('.', '..'));
 
@@ -18,7 +21,6 @@ if (!$migrationName) { // if there is no specific migration then migrate all tab
         try {
             $sql = file_get_contents($filePath);
 
-            // SQL komutlarını çalıştır
             $pdo->exec($sql);
 
             echo "successfully: $filePath\n";
@@ -29,7 +31,7 @@ if (!$migrationName) { // if there is no specific migration then migrate all tab
     exit();
 }
 
-$migrationFile = __DIR__ . "/../migrations/create_" . $migrationName . "_table.sql";
+$migrationFile = __DIR__ . "/../../App/migrations/create_" . $migrationName . "_table.sql";
 
 
 if (!file_exists($migrationFile)) {
@@ -40,7 +42,6 @@ if (!file_exists($migrationFile)) {
 try {
     $pdo->exec(file_get_contents($migrationFile));
     echo $migrationName . " is migrated successfully.";
-} catch (PDOException $E) {
-    echo $migrationName . " migration is failed.";
+} catch (PDOException $e) {
+    echo $migrationName . " migration is failed. $e";
 }
-

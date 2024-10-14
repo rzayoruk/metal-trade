@@ -31,7 +31,7 @@ class Database
         }
     }
 
-    protected function getPdo()
+    public function getPdo()
     {
         return $this->pdo;
     }

@@ -51,7 +51,6 @@ $csrfToken = App\Security\Csrf\CsrfToken::generate();
                 break;
         }
     }
-    echo var_dump($_SESSION);
     ?>
     <form action="includes/editProfile-inc.php" method="POST">
         <input required type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>">
