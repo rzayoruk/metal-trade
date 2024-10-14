@@ -39,6 +39,8 @@ $user = $loginAttempt->loginUser();
 if ($user) {
     $_SESSION["id"] = $user["id"];
     $_SESSION["name"] = $user["name"];
+    $_SESSION["surname"] = $user["surname"];
+    $_SESSION["email"] = $user["email"];
     $_SESSION["roleId"] = $user["roleId"];
     header("Location:../index.php");
     exit;

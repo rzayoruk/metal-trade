@@ -12,3 +12,18 @@ if (!isset($_POST["csrf_token"]) || !$_POST["csrf_token"] == $_SESSION["csrf_tok
 }
 
 
+if (!isset($_SESSION["name"])) {
+    header("Location:../index.php");
+}
+$_POST = array_map('trim', $_POST);
+
+$name = $_POST["name"];
+$surname = $_POST["surname"];
+$email= $_POST["email"];
+
+$updateAttempt = new UpdateInfos($_SESSION["id"]);
+$updateAttempt->updateStage($name, $surname, $email);
+
+$_SESSION["name"] = $name;
+$_SESSION["surname"] = $surname;
+$_SESSION["email"] = $email;

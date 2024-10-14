@@ -44,15 +44,14 @@ class User extends Database
 
     protected function login($email, $passwd)
     {
-        $sql = "SELECT id, name, role_id, password FROM users WHERE email = ?;";
+        $sql = "SELECT id, name, surname,email, role_id, password FROM users WHERE email = ?;";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($passwd, $user["password"])) {
-            return ['id' => $user["id"], 'name' => $user["name"], 'roleId' => $user["role_id"]];
+            return ['id' => $user["id"], 'name' => $user["name"], 'surname' => $user["surname"], 'email' => $user["email"], 'roleId' => $user["role_id"]];
         }
         return false;
     }
-  
 }
