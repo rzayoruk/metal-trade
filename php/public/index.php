@@ -22,6 +22,9 @@ session_start();
         Welcome <?= $_SESSION["name"] ?>
         <a href="account.php">view my account</a>
         <a href="includes/logout.php">logout</a>
+        <?php if ($_SESSION["roleId"] == 2): ?>
+            <a href="admin/categories.php">Categories Settings</a>
+        <?php endif; ?>
     <?php else : ?>
         <a href="login.php">Login</a><br>
         <a href="signup.php">Sign Up</a>
