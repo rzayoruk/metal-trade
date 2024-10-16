@@ -21,6 +21,7 @@ class CategoryController extends Category
     }
     public function insertCategory($parentId, $title)
     {
+   
         // sanitizing must be done.
         parent::__construct();
         return $this->insert($parentId, $title);
