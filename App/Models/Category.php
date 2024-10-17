@@ -20,6 +20,39 @@ class Category extends Database
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     }
+    public function getWithTree($parentId, $depth, $arr = [])
+    {
+
+        if ($parentId === null) {
+            $sql = "SELECT id, title FROM categories WHERE parent_id is NULL";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+        } else {
+            $sql = "SELECT id, title FROM categories WHERE parent_id = :parentId ;";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':parentId' => $parentId]);
+        }
+
+        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!$categories) {
+
+            return;
+        }
+
+
+        foreach ($categories as $category) {
+
+            $currentPath = $arr; 
+            $currentPath[] = $category["title"]; 
+            
+            // Kategori yolunu ekrana yazdır
+            //echo implode(" > ", $currentPath) . "<br>";
+             echo ' <option value="' . $category["id"] . '">' . implode(" > ", $currentPath) . '</option>' . "<br>";
+
+            $this->getWithTree($category["id"], $depth + 1, $currentPath);
+        }
+    }
     protected function insert($parentId, $title)
     {
         if ($parentId === "main") {

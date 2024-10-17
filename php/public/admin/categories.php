@@ -5,16 +5,9 @@ require __DIR__ . "/../../../autoloader.php";
 use App\Controllers\Admin\CategoryController;
 
 $obj = new CategoryController;
-var_dump($obj->getAllCategory());
-$categories = $obj->getAllCategory();
-foreach ($categories as $category) {
-    getTree($category);
-}
-function getTree($category)
-{
-    if ($category["parent_id"] == 0) {
-    }
-}
+
+$parentId = null;
+$depth = 1;
 
 ?>
 
@@ -42,9 +35,8 @@ function getTree($category)
 
         <select name="parentId">
             <option value="main">Main Category</option>
-            <?php foreach ($categories as $category) :  ?>
-                <option value="<?= $category["id"] ?>"><?= $category["title"] ?></option>
-            <?php endforeach; ?>
+            <?php $obj->getAllCategoryWithTree($parentId, $depth);
+            ?>
         </select>
         <input type="text" name="title">
         <button type="submit">insert</button>

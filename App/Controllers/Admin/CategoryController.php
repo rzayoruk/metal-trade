@@ -19,9 +19,13 @@ class CategoryController extends Category
         parent::__construct();
         return $this->getAll();
     }
+    public function getAllCategoryWithTree($parentId, $depth)
+    {
+        parent::__construct();
+        $this->getWithTree($parentId, $depth);
+    }
     public function insertCategory($parentId, $title)
     {
-   
         // sanitizing must be done.
         parent::__construct();
         return $this->insert($parentId, $title);
