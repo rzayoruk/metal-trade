@@ -52,32 +52,32 @@ class CategoryController extends Category
 
         if ($file["catImg"]["size"] <= $validFileSize) {
 
+            //$name = uniqid("",true); // it can be an option for large-scale app
+            echo
             $absolutePath = realpath(__DIR__ . "/../../../php/public/images");
-            echo "her şey yolundadır <br>";
-            echo  $absolutePath . "/" . $file["catImg"]["name"] . "<br>";
             $upload = move_uploaded_file($file["catImg"]["tmp_name"], $absolutePath . "/" . $file["catImg"]["name"]);
             if ($upload) {
-                echo "succeed";
-
-                echo '<img src= "../images/' . $file["catImg"]["name"] . '" width = "500" height="500">';
-                exit;
+                //echo '<img src= "../images/' . $file["catImg"]["name"] . '" width = "500" height="500">';
+                return $file["catImg"]["name"];
             } else {
-                echo "faileds";
-                exit;
+                return false;
             }
         } else {
-            echo "an error occured";
-            exit;
+            return false;
         }
     }
 
     public function insertCategory($parentId, $title, $file)
     {
 
-        $this->isImageValid($file);
+        $isImageUpload = $this->isImageValid($file);
+        if (!$isImageUpload) {
+            echo "image error";
+            exit;
+        }
 
         // sanitizing must be done.
         parent::__construct();
-        return $this->insert($parentId, $title);
+        return $this->insert($parentId, $title, $isImageUpload);
     }
 }

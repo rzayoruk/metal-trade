@@ -43,24 +43,24 @@ class Category extends Database
 
         foreach ($categories as $category) {
 
-            $currentPath = $arr; 
-            $currentPath[] = $category["title"]; 
-            
+            $currentPath = $arr;
+            $currentPath[] = $category["title"];
+
             // Kategori yolunu ekrana yazdır
             //echo implode(" > ", $currentPath) . "<br>";
-             echo ' <option value="' . $category["id"] . '">' . implode(" > ", $currentPath) . '</option>' . "<br>";
+            echo ' <option value="' . $category["id"] . '">' . implode(" > ", $currentPath) . '</option>' . "<br>";
 
             $this->getWithTree($category["id"], $depth + 1, $currentPath);
         }
     }
-    protected function insert($parentId, $title)
+    protected function insert($parentId, $title, $imageName)
     {
         if ($parentId === "main") {
             $parentId = null;
         }
-        $sql = "INSERT INTO categories (parent_id, title) VALUES (?, ?);";
+        $sql = "INSERT INTO categories (parent_id, title, image) VALUES (?, ?, ?);";
         $stmt = $this->pdo->prepare($sql);
-        $rows = $stmt->execute([$parentId, $title]);
+        $rows = $stmt->execute([$parentId, $title, $imageName]);
         return $rows;
     }
 }
