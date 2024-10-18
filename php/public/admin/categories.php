@@ -38,10 +38,28 @@ $depth = 1;
             <?php $obj->getAllCategoryWithTree($parentId, $depth);
             ?>
         </select>
-        <input type="file" name="catImg">
+        <input type="file" name="catImg" id="fileInput"><img id="imagePreview" style="max-width:300px" src="" alt="">
         <input type="text" name="title">
         <button type="submit">insert</button>
     </form>
 </body>
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const imagePreview = document.getElementById('imagePreview');
+
+    fileInput.addEventListener('change', function() {
+        const file = this.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+            }
+
+            reader.readAsDataURL(file); // b64
+        }
+    });
+</script>
 
 </html>
