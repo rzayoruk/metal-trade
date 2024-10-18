@@ -31,13 +31,14 @@ $depth = 1;
         }
     }
     ?>
-    <form action="../includes/category-add.php" method="post">
+    <form action="../includes/category-add.php" method="post" enctype="multipart/form-data">
 
         <select name="parentId">
             <option value="main">Main Category</option>
             <?php $obj->getAllCategoryWithTree($parentId, $depth);
             ?>
         </select>
+        <input type="file" name="catImg">
         <input type="text" name="title">
         <button type="submit">insert</button>
     </form>

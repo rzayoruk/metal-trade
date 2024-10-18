@@ -24,8 +24,58 @@ class CategoryController extends Category
         parent::__construct();
         $this->getWithTree($parentId, $depth);
     }
-    public function insertCategory($parentId, $title)
+
+    private function isImageValid($file)
     {
+        if ($file["catImg"]["error"] == 4) {
+            echo "category image should be uploaded.";
+            exit;
+        }
+        if (!is_uploaded_file($file["catImg"]["tmp_name"])) {
+            echo "category image must be uploaded.";
+            exit;
+        }
+
+        $validFileExtensions = [
+            "image/jpeg",
+            "image/png",
+        ];
+
+        $fileExtension = $file["catImg"]["type"];
+
+        if (!in_array($fileExtension, $validFileExtensions)) {
+            echo "an error occured1.";
+            exit;
+        }
+
+        $validFileSize = 1024 * 1024 * 5;  // 1024b^2*5 = 5mb
+
+        if ($file["catImg"]["size"] <= $validFileSize) {
+
+            $absolutePath = realpath(__DIR__ . "/../../../php/public/images");
+            echo "her şey yolundadır <br>";
+            echo  $absolutePath . "/" . $file["catImg"]["name"] . "<br>";
+            $upload = move_uploaded_file($file["catImg"]["tmp_name"], $absolutePath . "/" . $file["catImg"]["name"]);
+            if ($upload) {
+                echo "succeed";
+
+                echo '<img src= "../images/' . $file["catImg"]["name"] . '" width = "500" height="500">';
+                exit;
+            } else {
+                echo "faileds";
+                exit;
+            }
+        } else {
+            echo "an error occured";
+            exit;
+        }
+    }
+
+    public function insertCategory($parentId, $title, $file)
+    {
+
+        $this->isImageValid($file);
+
         // sanitizing must be done.
         parent::__construct();
         return $this->insert($parentId, $title);
