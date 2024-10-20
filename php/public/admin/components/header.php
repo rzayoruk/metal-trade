@@ -1,6 +1,4 @@
 <?php
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +13,7 @@
         rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= "../temp/AdminLTE-3.1.0/" ?>plugins/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="../temp/AdminLTE-3.1.0/plugins/fontawesome-free/css/all.min.css" />
     <!-- Ionicons -->
     <link
         rel="stylesheet"
@@ -23,23 +21,23 @@
     <!-- Tempusdominus Bootstrap 4 -->
     <link
         rel="stylesheet"
-        href="<?= "../temp/AdminLTE-3.1.0/" ?>plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" />
+        href="../temp/AdminLTE-3.1.0/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" />
     <!-- iCheck -->
     <link
         rel="stylesheet"
-        href="<?= "../temp/AdminLTE-3.1.0/" ?>plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
+        href="../temp/AdminLTE-3.1.0/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
     <!-- JQVMap -->
-    <link rel="stylesheet" href="<?= "../temp/AdminLTE-3.1.0/" ?>plugins/jqvmap/jqvmap.min.css" />
+    <link rel="stylesheet" href="../temp/AdminLTE-3.1.0/plugins/jqvmap/jqvmap.min.css" />
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?= "../temp/AdminLTE-3.1.0/" ?>dist/css/adminlte.min.css" />
+    <link rel="stylesheet" href="../temp/AdminLTE-3.1.0/dist/css/adminlte.min.css" />
     <!-- overlayScrollbars -->
     <link
         rel="stylesheet"
-        href="<?= "../temp/AdminLTE-3.1.0/" ?>plugins/overlayScrollbars/css/OverlayScrollbars.min.css" />
+        href="../temp/AdminLTE-3.1.0/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" />
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="<?= "../temp/AdminLTE-3.1.0/" ?>plugins/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="../temp/AdminLTE-3.1.0/plugins/daterangepicker/daterangepicker.css" />
     <!-- summernote -->
-    <link rel="stylesheet" href="<?= "../temp/AdminLTE-3.1.0/" ?>plugins/summernote/summernote-bs4.min.css" />
+    <link rel="stylesheet" href="../temp/AdminLTE-3.1.0/plugins/summernote/summernote-bs4.min.css" />
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -49,7 +47,7 @@
             class="preloader flex-column justify-content-center align-items-center">
             <img
                 class="animation__shake"
-                src="<?= "../temp/AdminLTE-3.1.0/" ?>dist/img/AdminLTELogo.png"
+                src="../temp/AdminLTE-3.1.0/dist/img/AdminLTELogo.png"
                 alt="AdminLTELogo"
                 height="60"
                 width="60" />
@@ -116,7 +114,7 @@
                             <!-- Message Start -->
                             <div class="media">
                                 <img
-                                    src="<?= "../temp/AdminLTE-3.1.0/" ?>dist/img/user1-128x128.jpg"
+                                    src="../temp/AdminLTE-3.1.0/dist/img/user1-128x128.jpg"
                                     alt="User Avatar"
                                     class="img-size-50 mr-3 img-circle" />
                                 <div class="media-body">
@@ -137,7 +135,7 @@
                             <!-- Message Start -->
                             <div class="media">
                                 <img
-                                    src="<?= "../temp/AdminLTE-3.1.0/" ?>dist/img/user8-128x128.jpg"
+                                    src="../temp/AdminLTE-3.1.0/dist/img/user8-128x128.jpg"
                                     alt="User Avatar"
                                     class="img-size-50 img-circle mr-3" />
                                 <div class="media-body">
@@ -158,7 +156,7 @@
                             <!-- Message Start -->
                             <div class="media">
                                 <img
-                                    src="<?= "../temp/AdminLTE-3.1.0/" ?>dist/img/user3-128x128.jpg"
+                                    src="../temp/AdminLTE-3.1.0/dist/img/user3-128x128.jpg"
                                     alt="User Avatar"
                                     class="img-size-50 img-circle mr-3" />
                                 <div class="media-body">
