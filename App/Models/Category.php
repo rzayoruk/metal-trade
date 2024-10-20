@@ -20,6 +20,9 @@ class Category extends Database
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     }
+
+    
+
     public function getWithTree($parentId, $depth, $arr = [])
     {
 
