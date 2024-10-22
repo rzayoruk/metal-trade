@@ -44,8 +44,7 @@ class CategoryController extends Category
         $fileExtension = $file["catImg"]["type"];
 
         if (!in_array($fileExtension, $validFileExtensions)) {
-            echo "an error occured1.";
-            exit;
+            return false;
         }
 
         $validFileSize = 1024 * 1024 * 5;  // 1024b^2*5 = 5mb
@@ -53,7 +52,6 @@ class CategoryController extends Category
         if ($file["catImg"]["size"] <= $validFileSize) {
 
             //$name = uniqid("",true); // it can be an option for large-scale app
-            echo
             $absolutePath = realpath(__DIR__ . "/../../../php/public/images");
             $upload = move_uploaded_file($file["catImg"]["tmp_name"], $absolutePath . "/" . $file["catImg"]["name"]);
             if ($upload) {
@@ -66,8 +64,20 @@ class CategoryController extends Category
             return false;
         }
     }
+    private function isValidOthers($parentId, $title, $keywords, $description, $status, $slug)
+    {
+        if (empty($parentId) || empty($title) || empty($keywords) || empty($description) || empty($status) || empty($slug)) { //empty Input check
 
-    public function insertCategory($parentId, $title, $file)
+            $_SESSION["error"] = "All inputs are necessary. Please fill all fields.";
+            header("Location:../admin/category_add.php");
+            exit;
+        }
+    }
+
+
+
+
+    public function insertCategory($parentId, $title, $file, $keywords, $description, $status, $slug)
     {
 
         $isImageUpload = $this->isImageValid($file);
@@ -76,8 +86,13 @@ class CategoryController extends Category
             exit;
         }
 
+        $this->isValidOthers($parentId, $title, $keywords, $description, $status, $slug);
+
+
+
+
         // sanitizing must be done.
         parent::__construct();
-        return $this->insert($parentId, $title, $isImageUpload);
+        return $this->insert($parentId, $title, $isImageUpload, $keywords, $description, $status, $slug);
     }
 }

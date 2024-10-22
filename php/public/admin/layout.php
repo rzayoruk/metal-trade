@@ -1,5 +1,4 @@
     <?php
-
     include "components/header.php";
     include "components/leftSidebar.php";
 
@@ -17,5 +16,6 @@
             echo $single;
         }
     }
+    include "components/closeBody.php";
 
     ?>

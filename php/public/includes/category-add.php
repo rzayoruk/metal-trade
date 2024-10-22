@@ -4,16 +4,18 @@ require __DIR__ . "/../../../autoloader.php";
 
 use App\Controllers\Admin\CategoryController;
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST" || $_SESSION["roleId"] !== 2 || !isset($_POST["parentId"]) || !isset($_POST["title"])) {
-    header("Location:../index.php");
+if ($_SESSION["roleId"] != 2) {
+    echo "nanana";
     exit;
 }
 
-//  print_r($_FILES);exit;
+
+
+
 $obj = new CategoryController;
-$isOK = $obj->insertCategory($_POST["parentId"], $_POST["title"], $_FILES);
+$isOK = $obj->insertCategory($_POST["parentId"], $_POST["title"], $_FILES, $_POST["keywords"], $_POST["description"], $_POST["status"], $_POST["slug"]);
 if ($isOK) {
-    header("Location:../admin/categories.php?status=success");
+    header("Location:../admin/category_add.php?status=success");
     exit();
 }
 return "Some problems have occured";

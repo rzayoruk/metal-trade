@@ -16,7 +16,3 @@
  <!-- /.control-sidebar -->
  </div>
  <!-- ./wrapper -->
-
- </body>
-
- </html>

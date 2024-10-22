@@ -1,4 +1,14 @@
 <?php
+
+require __DIR__ . "/../../../../autoloader.php";
+
+use App\Controllers\Admin\CategoryController;
+
+$obj = new CategoryController;
+
+$parentId = null;
+$depth = 1;
+
 ?>
 <div class="row mb-2">
     <div class="col-sm-6">
@@ -32,37 +42,34 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form>
+                    <form action="../includes/category-add.php" method="post" enctype="multipart/form-data">
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Minimal</label>
-                                <select class="form-control select2" style="width: 100%;">
-                                    <option selected="selected">Alabama</option>
-                                    <option>Alaska</option>
-                                    <option>California</option>
-                                    <option>Delaware</option>
-                                    <option>Tennessee</option>
-                                    <option>Texas</option>
-                                    <option>Washington</option>
+                                <label>Parent Category</label>
+                                <select class="form-control select2" style="width: 100%;" name="parentId">
+                                    <option value="main">Main Category</option>
+                                    <?php $obj->getAllCategoryWithTree($parentId, $depth);
+                                    ?>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Title</label>
-                                <input type="text" class="form-control" placeholder="Enter email">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" placeholder="Enter title" name="title">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Keywords</label>
-                                <input type="text" class="form-control" placeholder="Enter email">
+                                <label for="keywords">Keywords</label>
+                                <input type="text" class="form-control" placeholder="Enter keywords" name="keywords">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Description</label>
-                                <input type="text" class="form-control" placeholder="Enter email">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control" placeholder="Enter description" name="description">
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputFile">Image</label>
+                                <label for="">Image :</label> <label width="20"></label>
+                                <img id="imagePreview" style="max-width:80px; aspect-ratio:1/1; object-fit: cover;" src="" alt=""><br> <br>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                        <input type="file" class="custom-file-input" id="exampleInputFile" name="catImg">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
                                     <div class="input-group-append">
@@ -71,12 +78,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Status</label>
-                                <input type="text" class="form-control" placeholder="Enter email">
+                                <label>Status</label>
+                                <select class="form-control select2" style="width: 100%;" name="status">
+                                    <option value="1" selected>True</option>
+                                    <option value="0">False</option>
+
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Slug</label>
-                                <input type="text" class="form-control" placeholder="Enter email">
+                                <input type="text" class="form-control" placeholder="Enter slug for SEO" name="slug">
                             </div>
 
                         </div>
