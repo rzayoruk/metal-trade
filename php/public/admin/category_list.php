@@ -1,4 +1,5 @@
 <?php
+session_start();
 $content = 'pages/categoryList.php';
 $scripts = [
   "plugins/jquery/jquery.min.js",
@@ -39,4 +40,3 @@ $singles = ['
 '];
 
 include('layout.php');
-

@@ -16,8 +16,6 @@ class CategoryController extends Category
 
     public function getBranch($parentId, $title)
     {
-
-
         $branch = $this->getSpecificBranch($parentId, $title);
         // if (!$branch) {
         //     echo "branch error";
@@ -65,15 +63,19 @@ class CategoryController extends Category
         if ($file["catImg"]["size"] <= $validFileSize) {
 
             //$name = uniqid("",true); // it can be an option for large-scale app
-            $absolutePath = realpath(__DIR__ . "/../../../php/public/images");
+            $absolutePath = realpath(__DIR__ . "/../../../php/public/admin/images");
             $upload = move_uploaded_file($file["catImg"]["tmp_name"], $absolutePath . "/" . $file["catImg"]["name"]);
             if ($upload) {
                 //echo '<img src= "../images/' . $file["catImg"]["name"] . '" width = "500" height="500">';
                 return $file["catImg"]["name"];
             } else {
+                echo "zart";
+                exit;
                 return false;
             }
         } else {
+            echo "zurt";
+            exit;
             return false;
         }
     }
@@ -91,6 +93,13 @@ class CategoryController extends Category
     public function insertCategory($parentId, $title, $file, $keywords, $description, $status, $slug)
     {
 
+        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug)) {
+            $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
+            $_SESSION["notification"]["icon"] = "error";
+            $_SESSION["notification"]["title"] = "Error!";
+            header("Location:../admin/category_add.php");
+            exit;
+        }
         $imageName = $this->isImageValid($file);
         if (!$imageName) {
             $_SESSION["notification"]["text"] = "Something went wrong when the image uploaded.";
@@ -100,16 +109,24 @@ class CategoryController extends Category
             exit;
         }
 
-        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug)) {
-            $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
-            $_SESSION["notification"]["icon"] = "error";
-            $_SESSION["notification"]["title"] = "Error!";
-            header("Location:../admin/category_add.php");
-            exit;
-        }
 
         // sanitizing must be done.
         parent::__construct();
         return $this->insert($parentId, $title, $imageName, $keywords, $description, $status, $slug);
+    }
+
+    public function deleteCategory($id)
+    {
+
+        if (!preg_match('/^\d{1,7}$/', $id)) {
+            $_SESSION["notification"]["text"] = "wrong id format!";
+            $_SESSION["notification"]["icon"] = "error";
+            $_SESSION["notification"]["title"] = "Error!";
+            header("Location:../admin/category_list.php");
+            exit;
+        }
+
+        parent::__construct();
+        return $this->delete($id);
     }
 }

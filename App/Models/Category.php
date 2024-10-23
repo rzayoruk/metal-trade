@@ -85,4 +85,11 @@ class Category extends Database
         $rows = $stmt->execute([$parentId, $title, $imageName, $keywords, $description, $status, $slug]);
         return $rows;
     }
+    protected function delete($id)
+    {
+        $sql = "DELETE from categories WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $isOK = $stmt->execute([$id]);
+        return $isOK;
+    }
 }
