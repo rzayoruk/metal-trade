@@ -87,6 +87,24 @@ class Category extends Database
     }
     protected function delete($id)
     {
+        // echo __DIR__;exit; /var/www/html/App/Models
+        //find image name first
+        $sql = "SELECT image FROM categories WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        $path = __DIR__ . "/../../php/public/admin/images/";
+
+        $imageFullPath = realpath($path . "/" . $record["image"]);
+        if (file_exists($imageFullPath)) {
+            if (!unlink($imageFullPath)) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+
         $sql = "DELETE from categories WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $isOK = $stmt->execute([$id]);

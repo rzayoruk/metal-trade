@@ -125,7 +125,7 @@ class CategoryController extends Category
             header("Location:../admin/category_list.php");
             exit;
         }
-
+        
         parent::__construct();
         return $this->delete($id);
     }
