@@ -8,16 +8,22 @@ use App\Models\Category;
 class CategoryController extends Category
 {
 
-    private $pdo;
-    public function __construct()
-    {
-        $this->pdo = (new Database)->getPdo();
-    }
-
     public function getAllCategory()
     {
         parent::__construct();
         return $this->getAll();
+    }
+
+    public function getBranch($parentId, $title)
+    {
+
+
+        $branch = $this->getSpecificBranch($parentId, $title);
+        // if (!$branch) {
+        //     echo "branch error";
+        //     exit;
+        // }
+        return $branch;
     }
     public function getAllCategoryWithTree($parentId, $depth)
     {
@@ -28,11 +34,18 @@ class CategoryController extends Category
     private function isImageValid($file)
     {
         if ($file["catImg"]["error"] == 4) {
-            echo "category image should be uploaded.";
+            $_SESSION["notification"]["text"] = "Category image should be uploaded.";
+            $_SESSION["notification"]["icon"] = "error";
+            $_SESSION["notification"]["title"] = "Error!";
+            header("Location:../admin/category_add.php");
             exit;
         }
         if (!is_uploaded_file($file["catImg"]["tmp_name"])) {
-            echo "category image must be uploaded.";
+
+            $_SESSION["notification"]["text"] = "Category image must be uploaded.";
+            $_SESSION["notification"]["icon"] = "error";
+            $_SESSION["notification"]["title"] = "Error!";
+            header("Location:../admin/category_add.php");
             exit;
         }
 
@@ -64,14 +77,12 @@ class CategoryController extends Category
             return false;
         }
     }
-    private function isValidOthers($parentId, $title, $keywords, $description, $status, $slug)
+    private function isValidOthers($parentId, $title, $keywords, $description, $slug)
     {
-        if (empty($parentId) || empty($title) || empty($keywords) || empty($description) || empty($status) || empty($slug)) { //empty Input check
-
-            $_SESSION["error"] = "All inputs are necessary. Please fill all fields.";
-            header("Location:../admin/category_add.php");
-            exit;
+        if (empty($parentId) || empty($title) || empty($keywords) || empty($description)  || empty($slug)) { //empty Input check
+            return false;
         }
+        return true;
     }
 
 
@@ -80,19 +91,25 @@ class CategoryController extends Category
     public function insertCategory($parentId, $title, $file, $keywords, $description, $status, $slug)
     {
 
-        $isImageUpload = $this->isImageValid($file);
-        if (!$isImageUpload) {
-            echo "image error";
+        $imageName = $this->isImageValid($file);
+        if (!$imageName) {
+            $_SESSION["notification"]["text"] = "Something went wrong when the image uploaded.";
+            $_SESSION["notification"]["icon"] = "error";
+            $_SESSION["notification"]["title"] = "Error!";
+            header("Location:../admin/category_add.php");
             exit;
         }
 
-        $this->isValidOthers($parentId, $title, $keywords, $description, $status, $slug);
-
-
-
+        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug)) {
+            $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
+            $_SESSION["notification"]["icon"] = "error";
+            $_SESSION["notification"]["title"] = "Error!";
+            header("Location:../admin/category_add.php");
+            exit;
+        }
 
         // sanitizing must be done.
         parent::__construct();
-        return $this->insert($parentId, $title, $isImageUpload, $keywords, $description, $status, $slug);
+        return $this->insert($parentId, $title, $imageName, $keywords, $description, $status, $slug);
     }
 }

@@ -73,7 +73,7 @@ class SignupController extends User
 
     private function isNameOrSurnameInvalid()
     {
-        if (!preg_match("/^[a-zA-Z]+$/", $this->name) || !preg_match("/^[a-zA-Z]+$/", $this->surname)) {
+        if (!preg_match("/^[a-zA-Z ]+$/", $this->name) || !preg_match("/^[a-zA-Z ]+$/", $this->surname)) {
             return true;
         } else {
             return false;

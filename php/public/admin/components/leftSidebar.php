@@ -55,7 +55,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
+                    <a href="#" class="nav-link">
                         <i class="fas"></i>
                         <p>
                             Category
@@ -64,7 +64,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="category_add.php" class="nav-link active">
+                            <a href="category_list.php" class="nav-link active">
                                 <i class="far"></i>
                                 <p>Category List</p>
                             </a>

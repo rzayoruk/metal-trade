@@ -66,20 +66,18 @@ $depth = 1;
                             </div>
                             <div class="form-group">
                                 <label for="">Image :</label> <label width="20"></label>
-                                <img id="imagePreview" style="max-width:80px; aspect-ratio:1/1; object-fit: cover;" src="" alt=""><br> <br>
+                                <img id="imagePreview" style="max-width:150px; aspect-ratio:1/1; object-fit: cover;" src="" alt=""><br> <br>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="exampleInputFile" name="catImg">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">Upload</span>
-                                    </div>
+
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
-                                <select class="form-control select2" style="width: 100%;" name="status">
+                                <select class="form-control select2" style="max-width: max-content;" name="status">
                                     <option value="1" selected>True</option>
                                     <option value="0">False</option>
 

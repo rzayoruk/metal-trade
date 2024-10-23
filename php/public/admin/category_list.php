@@ -37,4 +37,6 @@ $singles = ['
   });
 </script>
 '];
+
 include('layout.php');
+

@@ -1,12 +1,5 @@
 <?php
 session_start();
-
-
-//echo ("<p style='display:none;'>" . $_SESSION["error"] . "</p>");
-
-
-
-
 $content = 'pages/categoryAdd.php';
 $scripts = [
   "plugins/jquery/jquery.min.js",
@@ -42,20 +35,7 @@ $(function () {
     });
 </script>"
 ];
-if (isset($_SESSION["error"])) {
-  array_push($singles, "
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: " . "'" . $_SESSION["error"] . "'" . ",
-            timer: 3000,
-            showConfirmButton: false
-        });
-    </script>");
 
-  unset($_SESSION['error']);
-}
+
 
 include('layout.php');

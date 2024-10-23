@@ -15,13 +15,32 @@ class Category extends Database
     }
     protected function getAll()
     {
-        $sql = "SELECT id, parent_id, title FROM categories;";
+        $sql = "SELECT id, parent_id, image, title FROM categories;";
         $stmt = $this->pdo->query($sql);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     }
 
-    
+    protected function getSpecificBranch($parentId, $title)
+    {
+
+        $sql = "SELECT id, parent_id, title FROM categories WHERE id = :parentId";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':parentId' => $parentId]);
+
+        $parentCategory = $stmt->fetch(PDO::FETCH_ASSOC);
+        // var_dump($parentCategory);
+        // exit;
+        if ($parentId === null) {
+
+            return $title;
+        }
+
+        $title = $parentCategory["title"] . " > " . $title;
+
+
+        return $this->getSpecificBranch($parentCategory["parent_id"], $title);
+    }
 
     public function getWithTree($parentId, $depth, $arr = [])
     {
@@ -56,14 +75,14 @@ class Category extends Database
             $this->getWithTree($category["id"], $depth + 1, $currentPath);
         }
     }
-    protected function insert($parentId, $title, $imageName)
+    protected function insert($parentId, $title, $imageName, $keywords, $description, $status, $slug)
     {
         if ($parentId === "main") {
             $parentId = null;
         }
-        $sql = "INSERT INTO categories (parent_id, title, image) VALUES (?, ?, ?);";
+        $sql = "INSERT INTO categories (parent_id, title, image, keywords, description, status, slug) VALUES (?, ?, ?, ?, ?, ?, ?);";
         $stmt = $this->pdo->prepare($sql);
-        $rows = $stmt->execute([$parentId, $title, $imageName]);
+        $rows = $stmt->execute([$parentId, $title, $imageName, $keywords, $description, $status, $slug]);
         return $rows;
     }
 }
