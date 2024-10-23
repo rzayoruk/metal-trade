@@ -125,8 +125,24 @@ class CategoryController extends Category
             header("Location:../admin/category_list.php");
             exit;
         }
-        
+
         parent::__construct();
         return $this->delete($id);
     }
+
+    public function bringDataForEdit($id)
+    {
+        if (!preg_match('/^\d{1,7}$/', $id)) {
+            $_SESSION["notification"]["text"] = "wrong id format!";
+            $_SESSION["notification"]["icon"] = "error";
+            $_SESSION["notification"]["title"] = "Error!";
+            header("Location:../admin/category_list.php");
+            exit;
+        }
+
+        parent::__construct();
+        return $this->bringData($id);
+    }
+
+    public function updateCategory($id) {}
 }

@@ -54,7 +54,7 @@ $categories = $categoryCont->getAllCategory();
                                         <td><?= $categoryCont->getBranch($category["parent_id"], $category["title"]) ?></td>
                                         <td><img src="<?= "images/" . $category["image"] ?>" style="width:50px; aspect-ratio:1/1; object-fit:cover;" alt=""></td>
                                         <td><?= $category["title"] ?></td>
-                                        <td>Edit</td>
+                                        <td><a href="category_edit.php?id=<?= $category["id"] ?>">Edit</a> </td>
                                         <td><a href="/../includes/category-delete.php?id=<?= $category["id"] ?>" onclick="return confirm('Are you sure to delete category?')">Delete</a></td>
                                     </tr>
                                 <?php endforeach; ?>

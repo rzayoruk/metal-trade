@@ -42,7 +42,7 @@ class Category extends Database
         return $this->getSpecificBranch($parentCategory["parent_id"], $title);
     }
 
-    public function getWithTree($parentId, $depth, $arr = [])
+    public function getWithTree($parentId, $depth, $arr = [], $editForm = false, $editId = false)
     {
 
         if ($parentId === null) {
@@ -70,7 +70,8 @@ class Category extends Database
 
             // Kategori yolunu ekrana yazdır
             //echo implode(" > ", $currentPath) . "<br>";
-            echo ' <option value="' . $category["id"] . '">' . implode(" > ", $currentPath) . '</option>' . "<br>";
+            echo ' <option '($editForm !== false && $editId !== false && $editId == $category["id"]) ? "selected" : "";
+            ' value="' . $category["id"] . '">' . implode(" > ", $currentPath) . '</option>' . "<br>";
 
             $this->getWithTree($category["id"], $depth + 1, $currentPath);
         }
@@ -109,5 +110,14 @@ class Category extends Database
         $stmt = $this->pdo->prepare($sql);
         $isOK = $stmt->execute([$id]);
         return $isOK;
+    }
+    protected function bringData($id)
+    {
+        $sql = "SELECT * from categories WHERE id = ?;";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $category = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $category;
     }
 }
