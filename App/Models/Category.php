@@ -42,6 +42,8 @@ class Category extends Database
         return $this->getSpecificBranch($parentCategory["parent_id"], $title);
     }
 
+
+
     public function getWithTree($parentId, $depth, $arr, $editId)
     {
 
@@ -61,10 +63,13 @@ class Category extends Database
             return;
         }
 
-        $sql = "SELECT parent_id FROM categories WHERE id = ?;";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$editId]);
-        $parentConst = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($editId !== false) {
+
+            $sql = "SELECT parent_id FROM categories WHERE id = ?;";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$editId]);
+            $parentConst = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
 
         foreach ($categories as $category) {
 
@@ -74,7 +79,11 @@ class Category extends Database
             //echo implode(" > ", $currentPath) . "<br>";
 
             $disabled = $category["id"] == $editId ? "disabled" : ""; //for edit page
-            $selected = $category["id"] == $parentConst["parent_id"] ? "selected" : ""; //for edit page
+
+            if ($parentConst)
+                $selected = $category["id"] == $parentConst["parent_id"] ? "selected" : ""; //for edit page
+            else
+                $selected = "";
 
             echo '<option value="' . $category["id"] . '" ' . $disabled . " " . $selected . ' >' . implode(" > ", $currentPath) . '</option>' . "<br>";
 
