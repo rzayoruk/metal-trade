@@ -76,6 +76,7 @@ class Category extends Database
             $this->getWithTree($category["id"], $depth + 1, $currentPath, $editId);
         }
     }
+    
     protected function insert($parentId, $title, $imageName, $keywords, $description, $status, $slug)
     {
         if ($parentId === "main") {
@@ -86,6 +87,7 @@ class Category extends Database
         $rows = $stmt->execute([$parentId, $title, $imageName, $keywords, $description, $status, $slug]);
         return $rows;
     }
+
     protected function delete($id)
     {
         // echo __DIR__;exit; /var/www/html/App/Models

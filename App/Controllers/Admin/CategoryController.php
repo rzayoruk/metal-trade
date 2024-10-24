@@ -38,8 +38,10 @@ class CategoryController extends Category
             header("Location:../admin/category_add.php");
             exit;
         }
-        if (!is_uploaded_file($file["catImg"]["tmp_name"])) {
 
+        var_dump($file);
+        exit;
+        if (!is_uploaded_file($file["catImg"]["tmp_name"])) {
             $_SESSION["notification"]["text"] = "Category image must be uploaded.";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
@@ -101,6 +103,7 @@ class CategoryController extends Category
             exit;
         }
         $imageName = $this->isImageValid($file);
+
         if (!$imageName) {
             $_SESSION["notification"]["text"] = "Something went wrong when the image uploaded.";
             $_SESSION["notification"]["icon"] = "error";

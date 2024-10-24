@@ -82,8 +82,8 @@ $categoryInfo =  $obj->bringDataForEdit($id);
                             <div class="form-group">
                                 <label>Status</label>
                                 <select class="form-control select2" style="max-width: max-content;" name="status">
-                                    <option value="1" selected>True</option>
-                                    <option value="0">False</option>
+                                    <option value="1" <?= $categoryInfo["description"] == true ? "selected" : " "; ?>>True</option>
+                                    <option value="0" <?= $categoryInfo["description"] == false ? "selected" : " "; ?>>False</option>
 
                                 </select>
                             </div>

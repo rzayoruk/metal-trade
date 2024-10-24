@@ -7,9 +7,12 @@ FROM php:8.1-fpm
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     && docker-php-ext-install pgsql pdo pdo_pgsql
-# in order to create php.ini for phpcli :)
-RUN ln -s /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini 
 
+# php.ini-development dosyasını php.ini olarak kopyala
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+
+# upload_max_filesize ayarını güncelle
+RUN sed -i "s/upload_max_filesize = .*/upload_max_filesize = 8M/" /usr/local/etc/php/php.ini
 
 WORKDIR /var/www/html
 
