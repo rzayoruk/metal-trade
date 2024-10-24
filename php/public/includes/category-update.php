@@ -13,12 +13,12 @@ if ($_SESSION["roleId"] != 2) {
 
 
 $obj = new CategoryController;
-$isOK = $obj->updateCategory($_POST["parentId"], $_POST["title"], $_FILES, $_POST["keywords"], $_POST["description"], $_POST["status"], $_POST["slug"]);
+$isOK = $obj->updateCategory($_POST["id"], $_POST["parentId"], $_POST["title"], $_FILES, $_POST["keywords"], $_POST["description"], $_POST["status"], $_POST["slug"]);
 if ($isOK) {
-    $_SESSION["notification"]["text"] = "Category added successfully.";
+    $_SESSION["notification"]["text"] = "Category updated successfully.";
     $_SESSION["notification"]["title"] = "Success!";
     $_SESSION["notification"]["icon"] = "success";
-    header("Location:../admin/category_add.php");
+    header("Location:../admin/category_list.php");
     exit();
 }
 return "Some problems have occured";

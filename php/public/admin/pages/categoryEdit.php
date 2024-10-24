@@ -47,7 +47,9 @@ $categoryInfo =  $obj->bringDataForEdit($id);
                     <!-- /.card-header -->
                     <!-- form start -->
                     <form action="../includes/category-update.php" method="post" enctype="multipart/form-data">
+
                         <div class="card-body">
+
                             <div class="form-group">
                                 <label>Parent Category</label>
                                 <select class="form-control select2" style="width: 100%;" name="parentId">
@@ -55,6 +57,11 @@ $categoryInfo =  $obj->bringDataForEdit($id);
                                     <?php $obj->getAllCategoryWithTree($parentId, $depth, $arr, $id);
                                     ?>
                                 </select>
+                            </div>
+
+                            <div class="form-group" style="display: none;">
+                                <label for="id">id</label>
+                                <input type="text" class="form-control" name="id" value="<?= $id ?>">
                             </div>
                             <div class="form-group">
                                 <label for="title">Title</label>
@@ -70,7 +77,7 @@ $categoryInfo =  $obj->bringDataForEdit($id);
                             </div>
                             <div class="form-group">
                                 <label for="">Image :</label> <label width="20"></label>
-                                <img id="imagePreview" style="max-width:150px; aspect-ratio:1/1; object-fit: cover;" src="" alt=""><br> <br>
+                                <img id="imagePreview" style="max-width:150px; aspect-ratio:1/1; object-fit: cover;" src="<?= "images/" . $categoryInfo["image"] ?>" alt=""><br> <br>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="exampleInputFile" name="catImg">
@@ -82,13 +89,13 @@ $categoryInfo =  $obj->bringDataForEdit($id);
                             <div class="form-group">
                                 <label>Status</label>
                                 <select class="form-control select2" style="max-width: max-content;" name="status">
-                                    <option value="1" <?= $categoryInfo["description"] == true ? "selected" : " "; ?>>True</option>
-                                    <option value="0" <?= $categoryInfo["description"] == false ? "selected" : " "; ?>>False</option>
+                                    <option value="1" <?= $categoryInfo["status"] == true ? "selected" : " "; ?>>True</option>
+                                    <option value="0" <?= $categoryInfo["status"] == false ? "selected" : " "; ?>>False</option>
 
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Slug</label>
+                                <label for="">Slug</label>
                                 <input type="text" class="form-control" placeholder="Enter slug for SEO" name="slug" value="<?= $categoryInfo["slug"] ?>">
                             </div>
 

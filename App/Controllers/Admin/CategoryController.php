@@ -39,10 +39,10 @@ class CategoryController extends Category
             exit;
         }
 
-        var_dump($file);
-        exit;
+        // var_dump($file);
+        // exit;
         if (!is_uploaded_file($file["catImg"]["tmp_name"])) {
-            $_SESSION["notification"]["text"] = "Category image must be uploaded.";
+            $_SESSION["notification"]["text"] = "Category image must be uploaded to the tmp.";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
             header("Location:../admin/category_add.php");
@@ -71,13 +71,11 @@ class CategoryController extends Category
                 //echo '<img src= "../images/' . $file["catImg"]["name"] . '" width = "500" height="500">';
                 return $file["catImg"]["name"];
             } else {
-                echo "zart";
-                exit;
+              
                 return false;
             }
         } else {
-            echo "zurt";
-            exit;
+        
             return false;
         }
     }
@@ -102,6 +100,7 @@ class CategoryController extends Category
             header("Location:../admin/category_add.php");
             exit;
         }
+
         $imageName = $this->isImageValid($file);
 
         if (!$imageName) {
@@ -147,5 +146,25 @@ class CategoryController extends Category
         return $this->bringData($id);
     }
 
-    public function updateCategory($id) {}
+    public function updateCategory($id, $parentId, $title, $file, $keywords, $description, $status, $slug)
+    {
+        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug)) {
+            $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
+            $_SESSION["notification"]["icon"] = "error";
+            $_SESSION["notification"]["title"] = "Error!";
+            header("Location:../admin/category_add.php");
+            exit;
+        }
+
+        $imageName = false;
+
+        if ($file["catImg"]["error"] != 4) { //is image exist
+
+            $imageName = $this->isImageValid($file);
+        }
+
+        // sanitizing must be done.
+        parent::__construct();
+        return $this->update($id, $parentId, $title, $imageName, $keywords, $description, $status, $slug);
+    }
 }
