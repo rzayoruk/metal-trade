@@ -64,13 +64,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="category_list.php" class="nav-link active">
+                            <a href="category_list.php" class="nav-link <?= str_contains($_SERVER["REQUEST_URI"], "category_list.php") ? "active" : ""; ?>">
                                 <i class="far"></i>
                                 <p>Category List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="category_add.php" class="nav-link active">
+                            <a href="category_add.php" class="nav-link <?= str_contains($_SERVER["REQUEST_URI"], "category_add.php") ? "active" : ""; ?>">
                                 <i class="far"></i>
                                 <p>Add New Category</p>
                             </a>
