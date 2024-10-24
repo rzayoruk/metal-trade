@@ -8,6 +8,7 @@ $obj = new CategoryController;
 
 $parentId = null;
 $depth = 1;
+$editId = false;
 
 ?>
 <div class="row mb-2">
@@ -48,7 +49,7 @@ $depth = 1;
                                 <label>Parent Category</label>
                                 <select class="form-control select2" style="width: 100%;" name="parentId">
                                     <option value="main">Main Category</option>
-                                    <?php $obj->getAllCategoryWithTree($parentId, $depth);
+                                    <?php $obj->getAllCategoryWithTree($parentId, $depth, [], $editId);
                                     ?>
                                 </select>
                             </div>

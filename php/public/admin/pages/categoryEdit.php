@@ -8,8 +8,10 @@ $obj = new CategoryController;
 
 $parentId = null;
 $depth = 1;
+$arr = [];
+$id = $_GET["id"];
 
-$categoryInfo =  $obj->bringDataForEdit($_GET["id"]);
+$categoryInfo =  $obj->bringDataForEdit($id);
 
 ?>
 <div class="row mb-2">
@@ -50,7 +52,7 @@ $categoryInfo =  $obj->bringDataForEdit($_GET["id"]);
                                 <label>Parent Category</label>
                                 <select class="form-control select2" style="width: 100%;" name="parentId">
                                     <option value="main">Main Category</option>
-                                    <?php //$obj->getAllCategoryWithTree($parentId, $depth);
+                                    <?php $obj->getAllCategoryWithTree($parentId, $depth, $arr, $id);
                                     ?>
                                 </select>
                             </div>

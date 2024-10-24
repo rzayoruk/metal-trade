@@ -42,7 +42,7 @@ class Category extends Database
         return $this->getSpecificBranch($parentCategory["parent_id"], $title);
     }
 
-    public function getWithTree($parentId, $depth, $arr = [], $editForm = false, $editId = false)
+    public function getWithTree($parentId, $depth, $arr, $editId)
     {
 
         if ($parentId === null) {
@@ -58,22 +58,22 @@ class Category extends Database
         $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if (!$categories) {
-
             return;
         }
 
 
         foreach ($categories as $category) {
 
-            $currentPath = $arr;
+            $currentPath = is_array($arr) ? $arr : [];
             $currentPath[] = $category["title"];
 
             // Kategori yolunu ekrana yazdır
             //echo implode(" > ", $currentPath) . "<br>";
-            echo ' <option '($editForm !== false && $editId !== false && $editId == $category["id"]) ? "selected" : "";
-            ' value="' . $category["id"] . '">' . implode(" > ", $currentPath) . '</option>' . "<br>";
+            $selected = $category["id"] == $editId ? "selected" : "";
 
-            $this->getWithTree($category["id"], $depth + 1, $currentPath);
+            echo ' <option value="' . $category["id"] . '" ' . $selected . ' >' . implode(" > ", $currentPath) . '</option>' . "<br>";
+
+            $this->getWithTree($category["id"], $depth + 1, $currentPath, $editId);
         }
     }
     protected function insert($parentId, $title, $imageName, $keywords, $description, $status, $slug)
@@ -117,7 +117,7 @@ class Category extends Database
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
         $category = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         return $category;
     }
 }

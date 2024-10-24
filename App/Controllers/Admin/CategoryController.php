@@ -23,10 +23,10 @@ class CategoryController extends Category
         // }
         return $branch;
     }
-    public function getAllCategoryWithTree($parentId, $depth)
+    public function getAllCategoryWithTree($parentId, $depth, $arr, $editId)
     {
         parent::__construct();
-        $this->getWithTree($parentId, $depth);
+        $this->getWithTree($parentId, $depth, $arr, $editId);
     }
 
     private function isImageValid($file)
