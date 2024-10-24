@@ -35,9 +35,11 @@ $categories = $categoryCont->getAllCategory();
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">DataTable with default features</h3>
+
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        <a href="category_add.php" class="btn btn-info btn-xl">Add Category</a><br><br>
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
