@@ -23,10 +23,17 @@ class CategoryController extends Category
         // }
         return $branch;
     }
+    private function getParentIdWithId($editId)
+    {
+        $this->getPIdWithId($editId);
+    }
     public function getAllCategoryWithTree($parentId, $depth, $arr, $editId)
     {
         parent::__construct();
-        $this->getWithTree($parentId, $depth, $arr, $editId);
+        if ($editId !== false) {
+            $constParent = $this->getParentIdWithId($editId);
+        }
+        $this->getWithTree($parentId, $depth, $arr, $editId, $constParent);
     }
 
     private function isImageValid($file)
@@ -71,11 +78,11 @@ class CategoryController extends Category
                 //echo '<img src= "../images/' . $file["catImg"]["name"] . '" width = "500" height="500">';
                 return $file["catImg"]["name"];
             } else {
-              
+
                 return false;
             }
         } else {
-        
+
             return false;
         }
     }
