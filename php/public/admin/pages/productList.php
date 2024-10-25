@@ -56,7 +56,7 @@ $products = $productController->getAllProduct();
                                         <td><?= $productController->getBranch($product["category_id"]) ?></td>
                                         <!-- <td><img src="" style="width:50px; aspect-ratio:1/1; object-fit:cover;" alt=""></td> -->
                                         <td><?= $product["title"] ?></td>
-                                        <td><a href="category_edit.php?id=<?= $product["id"] ?>">Edit</a> </td>
+                                        <td><a href="product_edit.php?id=<?= $product["id"] ?>">Edit</a> </td>
                                         <td><a href="/../includes/product-delete.php?id=<?= $product["id"] ?>" onclick="return confirm('Are you sure to delete product?')">Delete</a></td>
                                     </tr>
                                 <?php endforeach; ?>

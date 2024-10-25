@@ -50,18 +50,20 @@ class Product extends Database
         return $this->getSpecificBranch($parentCategory["parent_id"], $title);
     }
 
-    protected function getPIdWithId($editId)
+    protected function getCategoryId($editId)
     {
 
-        $sql = "SELECT parent_id FROM categories WHERE id = ?;";
+        $sql = "SELECT category_id FROM products WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$editId]);
-        $parentConst = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $parentConst["parent_id"];
+        $categoryId = $stmt->fetch(PDO::FETCH_ASSOC);
+        // var_dump($categoryId);
+        // exit;
+        return $categoryId["category_id"];
     }
 
 
-    public function getWithTree($parentId, $depth, $arr, $editId, $constParent = false)
+    public function getWithTree($parentId, $depth, $arr, $editId, $categoryId)
     {
 
         if ($parentId === null) {
@@ -80,25 +82,18 @@ class Product extends Database
             return;
         }
 
-
-
         foreach ($categories as $category) {
 
             $currentPath = is_array($arr) ? $arr : [];
             $currentPath[] = $category["title"];
 
-            //echo implode(" > ", $currentPath) . "<br>";
 
-            $disabled = $category["id"] == $editId ? "disabled" : ""; //for edit page
 
-            if ($constParent !== false)
-                $selected = $category["id"] == $constParent ? "selected" : ""; //for edit page
-            else
-                $selected = "";
+            $selected = $category["id"] == $categoryId ? "selected" : ""; //for edit page
 
-            echo '<option value="' . $category["id"] . '" ' . $disabled . " " . $selected . ' >' . implode(" > ", $currentPath) . '</option>' . "<br>";
+            echo '<option value="' . $category["id"] . '" '  . $selected . ' >' . implode(" > ", $currentPath) . '</option>' . "<br>";
 
-            $this->getWithTree($category["id"], $depth + 1, $currentPath, $editId, $constParent);
+            $this->getWithTree($category["id"], $depth + 1, $currentPath, $editId, $categoryId);
         }
     }
 
@@ -122,43 +117,21 @@ class Product extends Database
     }
     protected function bringData($id)
     {
-        $sql = "SELECT * from categories WHERE id = ?;";
+        $sql = "SELECT * from products WHERE id = ?;";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
-        $category = $stmt->fetch(PDO::FETCH_ASSOC);
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $category;
+        return $product;
     }
 
-    protected function update($id, $parentId, $title, $imageName, $keywords, $description, $status, $slug)
+    protected function update($id, $categoryId, $title, $keywords, $description, $status, $slug, $quantity, $minquantity, $price)
     {
-        if ($parentId === "main") {
-            $parentId = null;
-        }
-
-        if (!$imageName) {
-
-            $sql = "UPDATE categories SET parent_id = ? , title = ? , keywords = ? , description = ?, status = ?, slug = ? WHERE id = ? ;";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$parentId, $title, $keywords, $description, $status, $slug, $id]);
-            return true;
-        } else {
-            //remove old image first
-            $sql = "SELECT image FROM categories WHERE id = ?";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$id]);
-            $oldImage = $stmt->fetch(PDO::FETCH_ASSOC);
-            $path = __DIR__ . "/../../php/public/admin/images/";
-            $imageFullPath = realpath($path . "/" . $oldImage["image"]);
-
-            unlink($imageFullPath);
 
 
-            $sql = "UPDATE categories SET parent_id = ? , title = ?, image = ? , keywords = ? , description = ?, status = ?, slug = ? WHERE id = ? ;";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$parentId, $title, $imageName, $keywords, $description, $status, $slug, $id]);
-            return true;
-        }
-        return false;
+        $sql = "UPDATE products SET category_id = ? , title = ? , keywords = ? , description = ?, status = ?, slug = ?, quantity = ?, minquantity = ?, price = ? WHERE id = ? ;";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$categoryId, $title, $keywords, $description, $status, $slug, $quantity, $minquantity, $price, $id]);
+        return true;
     }
 }
