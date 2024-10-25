@@ -121,7 +121,7 @@ class ProductController extends Product
         return $this->insert($parentId, $userId, $title, $keywords, $description, $status, $slug, $quantity, $minquantity, $price);
     }
 
-    public function deleteCategory($id)
+    public function deleteProduct($id)
     {
 
         if (!preg_match('/^\d{1,7}$/', $id)) {

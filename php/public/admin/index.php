@@ -1,5 +1,8 @@
 <?php
-
+session_start();
+if ($_SESSION["roleId"] !== 2) {
+    header("Location: ../index.php");
+}
 $content = 'pages/dashboard.php';
 $scripts = [
     "plugins/jquery/jquery.min.js",

@@ -21,14 +21,15 @@ class Product extends Database
         return $rows;
     }
 
-    protected function findFirstChildCategory($id) {
+    protected function findFirstChildCategory($id)
+    {
         $sql = "SELECT parent_id, title FROM categories WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
-        $parentAndTitle= $stmt->fetch(PDO::FETCH_ASSOC);
+        $parentAndTitle = $stmt->fetch(PDO::FETCH_ASSOC);
         return $parentAndTitle;
     }
-    protected function getSpecificBranch($parentId,$title)
+    protected function getSpecificBranch($parentId, $title)
     {
 
         $sql = "SELECT id, parent_id, title FROM categories WHERE id = :parentId";
@@ -114,25 +115,7 @@ class Product extends Database
 
     protected function delete($id)
     {
-        // echo __DIR__;exit; /var/www/html/App/Models
-        //find image name first
-        $sql = "SELECT image FROM categories WHERE id = ?";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$id]);
-        $record = $stmt->fetch(PDO::FETCH_ASSOC);
-        $path = __DIR__ . "/../../php/public/admin/images/";
-
-        $imageFullPath = realpath($path . "/" . $record["image"]);
-        if (file_exists($imageFullPath)) {
-            if (!unlink($imageFullPath)) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-
-
-        $sql = "DELETE from categories WHERE id = ?";
+        $sql = "DELETE from products WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $isOK = $stmt->execute([$id]);
         return $isOK;
