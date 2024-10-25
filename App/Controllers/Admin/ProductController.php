@@ -3,9 +3,9 @@
 namespace App\Controllers\Admin;
 
 use App\Helpers\Database;
-use App\Models\Category;
+use App\Models\Product;
 
-class CategoryController extends Category
+class ProductController extends Product
 {
 
     public function getAllCategory()
@@ -30,7 +30,6 @@ class CategoryController extends Category
     public function getAllCategoryWithTree($parentId, $depth, $arr, $editId)
     {
         parent::__construct();
-        $constParent = false;
         if ($editId !== false) {
             $constParent = $this->getParentIdWithId($editId);
         }
@@ -87,42 +86,40 @@ class CategoryController extends Category
             return false;
         }
     }
-    private function isValidOthers($parentId, $title, $keywords, $description, $slug)
+
+    private function isValidOthers($parentId, $title, $keywords, $description, $slug, $quantity, $minquantity, $price)
     {
-        if (empty($parentId) || empty($title) || empty($keywords) || empty($description)  || empty($slug)) { //empty Input check
+        if (empty($parentId) || empty($title) || empty($keywords) || empty($description)  || empty($slug) || empty($quantity) || empty($minquantity) || empty($price)) { //empty Input check
             return false;
         }
         return true;
     }
 
-
-
-
-    public function insertCategory($parentId, $title, $file, $keywords, $description, $status, $slug)
+    public function insertProduct($parentId, $userId, $title, $file, $keywords, $description, $status, $slug, $quantity, $minquantity, $price)
     {
 
-        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug)) {
+        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug, $quantity, $minquantity, $price)) {
             $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
-            header("Location:../admin/category_add.php");
+            header("Location:../admin/product_add.php");
             exit;
         }
 
-        $imageName = $this->isImageValid($file);
+        // $imageName = $this->isImageValid($file);
 
-        if (!$imageName) {
-            $_SESSION["notification"]["text"] = "Something went wrong when the image uploaded.";
-            $_SESSION["notification"]["icon"] = "error";
-            $_SESSION["notification"]["title"] = "Error!";
-            header("Location:../admin/category_add.php");
-            exit;
-        }
+        // if (!$imageName) {
+        //     $_SESSION["notification"]["text"] = "Something went wrong when the image uploaded.";
+        //     $_SESSION["notification"]["icon"] = "error";
+        //     $_SESSION["notification"]["title"] = "Error!";
+        //     header("Location:../admin/category_add.php");
+        //     exit;
+        // }
 
 
         // sanitizing must be done.
         parent::__construct();
-        return $this->insert($parentId, $title, $imageName, $keywords, $description, $status, $slug);
+        return $this->insert($parentId, $userId, $title, $keywords, $description, $status, $slug, $quantity, $minquantity, $price);
     }
 
     public function deleteCategory($id)

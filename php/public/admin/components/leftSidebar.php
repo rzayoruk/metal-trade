@@ -77,6 +77,29 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link">
+                        <i class="fas"></i>
+                        <p>
+                            Product
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="category_list.php" class="nav-link <?= str_contains($_SERVER["REQUEST_URI"], "category_list.php") ? "active" : ""; ?>">
+                                <i class="far"></i>
+                                <p>Product List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="product_add.php" class="nav-link <?= str_contains($_SERVER["REQUEST_URI"], "product_add.php") ? "active" : ""; ?>">
+                                <i class="far"></i>
+                                <p>Add New Product</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="../../temp/AdminLTE-3.1.0/pages/widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
