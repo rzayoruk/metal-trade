@@ -87,7 +87,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="category_list.php" class="nav-link <?= str_contains($_SERVER["REQUEST_URI"], "category_list.php") ? "active" : ""; ?>">
+                            <a href="product_list.php" class="nav-link <?= str_contains($_SERVER["REQUEST_URI"], "product_list.php") ? "active" : ""; ?>">
                                 <i class="far"></i>
                                 <p>Product List</p>
                             </a>

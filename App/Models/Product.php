@@ -15,13 +15,20 @@ class Product extends Database
     }
     protected function getAll()
     {
-        $sql = "SELECT id, parent_id, image, title FROM categories;";
+        $sql = "SELECT id, category_id, title FROM products;";
         $stmt = $this->pdo->query($sql);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     }
 
-    protected function getSpecificBranch($parentId, $title)
+    protected function findFirstChildCategory($id) {
+        $sql = "SELECT parent_id, title FROM categories WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $parentAndTitle= $stmt->fetch(PDO::FETCH_ASSOC);
+        return $parentAndTitle;
+    }
+    protected function getSpecificBranch($parentId,$title)
     {
 
         $sql = "SELECT id, parent_id, title FROM categories WHERE id = :parentId";

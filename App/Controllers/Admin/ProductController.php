@@ -8,19 +8,18 @@ use App\Models\Product;
 class ProductController extends Product
 {
 
-    public function getAllCategory()
+    public function getAllProduct()
     {
         parent::__construct();
         return $this->getAll();
     }
 
-    public function getBranch($parentId, $title)
+    public function getBranch($categoryId)
     {
-        $branch = $this->getSpecificBranch($parentId, $title);
-        // if (!$branch) {
-        //     echo "branch error";
-        //     exit;
-        // }
+
+        $parentAndTitle = $this->findFirstChildCategory($categoryId);
+        // var_dump($parentAndTitle);exit;
+        $branch = $this->getSpecificBranch($parentAndTitle["parent_id"], $parentAndTitle["title"]);
         return $branch;
     }
     private function getParentIdWithId($editId)
