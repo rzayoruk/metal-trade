@@ -113,6 +113,7 @@ class Product extends Database
         $stmt->execute([$id]);
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
         if ($record["image"]) {
             $path = __DIR__ . "/../../php/public/images/";
             $imageFullPath = realpath($path . "/" . $record["image"]);

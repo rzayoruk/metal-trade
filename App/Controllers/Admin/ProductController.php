@@ -61,19 +61,26 @@ class ProductController extends Product
         $fileExtension = $file["prodImg"]["type"];
 
         if (!in_array($fileExtension, $validFileExtensions)) {
-            return false;
+            $_SESSION["notification"]["text"] = "image extension is not valid.";
+            $_SESSION["notification"]["icon"] = "error";
+            $_SESSION["notification"]["title"] = "Error!";
+            header("Location:../admin/product_add.php");
+            exit;
         }
 
         $validFileSize = 1024 * 1024 * 5;  // 1024b^2*5 = 5mb
 
         if ($file["prodImg"]["size"] <= $validFileSize) {
 
-            //$name = uniqid("",true); // it can be an option for large-scale app
+            $name = uniqid(""); // it can be an option for large-scale app
             $absolutePath = realpath(__DIR__ . "/../../../php/public/images");
-            $upload = move_uploaded_file($file["prodImg"]["tmp_name"], $absolutePath . "/" . $file["prodImg"]["name"]);
+            $exploded = explode(".", $file["prodImg"]["name"]);
+            $extension =  $exploded[count($exploded) - 1];
+            $imageName = $name . "." . $extension;
+            $upload = move_uploaded_file($file["prodImg"]["tmp_name"], $absolutePath . "/" . $imageName);
             if ($upload) {
                 //echo '<img src= "../images/' . $file["catImg"]["name"] . '" width = "500" height="500">';
-                return $file["prodImg"]["name"];
+                return $imageName;
             } else {
 
                 return false;
