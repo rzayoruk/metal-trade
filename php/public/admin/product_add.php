@@ -10,6 +10,12 @@ $scripts = [
     "plugins/bs-custom-file-input/bs-custom-file-input.min.js",
     "dist/js/adminlte.min.js",
     "dist/js/demo.js",
+    "plugins/summernote/summernote-bs4.min.js",
+    "plugins/codemirror/codemirror.js",
+    "plugins/codemirror/mode/css/css.js",
+    "plugins/codemirror/mode/xml/xml.js",
+    "plugins/codemirror/mode/htmlmixed/htmlmixed.js",
+
 ];
 $singles = [
     "
@@ -36,6 +42,20 @@ $(function () {
             reader.readAsDataURL(file); // b64
         }
     });
+</script>",
+    "<script>
+
+  $(function () {
+    // Summernote
+    $('#summernote').summernote()
+
+    // CodeMirror
+    CodeMirror.fromTextArea(document.getElementById('codeMirrorDemo'), {
+      mode: 'htmlmixed',
+      theme: 'monokai'
+    });
+  })
+
 </script>"
 ];
 

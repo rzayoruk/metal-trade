@@ -97,14 +97,14 @@ class Product extends Database
         }
     }
 
-    protected function insert($categoryId, $userId, $title, $keywords, $description, $status, $slug, $quantity, $minquantity, $price)
+    protected function insert($categoryId, $userId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax)
     {
         if ($categoryId === "main") {
             $categoryId = null;
         }
-        $sql = "INSERT INTO products (category_id, user_id , title, keywords, description, status, slug ,quantity, minquantity, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        $sql = "INSERT INTO products (category_id, user_id , title, keywords, description, status, slug, detail ,quantity, minquantity, price, tax) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         $stmt = $this->pdo->prepare($sql);
-        $rows = $stmt->execute([$categoryId, $userId, $title, $keywords, $description, $status, $slug, $quantity, $minquantity, $price]);
+        $rows = $stmt->execute([$categoryId, $userId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax]);
         return $rows;
     }
 
@@ -125,13 +125,13 @@ class Product extends Database
         return $product;
     }
 
-    protected function update($id, $categoryId, $title, $keywords, $description, $status, $slug, $quantity, $minquantity, $price)
+    protected function update($id, $categoryId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax)
     {
 
 
-        $sql = "UPDATE products SET category_id = ? , title = ? , keywords = ? , description = ?, status = ?, slug = ?, quantity = ?, minquantity = ?, price = ? WHERE id = ? ;";
+        $sql = "UPDATE products SET category_id = ? , title = ? , keywords = ? , description = ?, status = ?, slug = ?, detail = ?, quantity = ?, minquantity = ?, price = ?, tax = ? WHERE id = ? ;";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$categoryId, $title, $keywords, $description, $status, $slug, $quantity, $minquantity, $price, $id]);
+        $stmt->execute([$categoryId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax, $id]);
         return true;
     }
 }

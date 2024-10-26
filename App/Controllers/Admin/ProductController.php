@@ -83,18 +83,18 @@ class ProductController extends Product
         }
     }
 
-    private function isValidOthers($parentId, $title, $keywords, $description, $slug, $quantity, $minquantity, $price)
+    private function isValidOthers($parentId, $title, $keywords, $description, $slug, $detail, $quantity, $minquantity, $price, $tax)
     {
-        if (empty($parentId) || empty($title) || empty($keywords) || empty($description)  || empty($slug) || empty($quantity) || empty($minquantity) || empty($price)) { //empty Input check
+        if (empty($parentId) || empty($title) || empty($keywords) || empty($description)  || empty($slug) || empty($detail) || empty($quantity) || empty($minquantity) || empty($price) || empty($tax)) { //empty Input check
             return false;
         }
         return true;
     }
 
-    public function insertProduct($parentId, $userId, $title, $file, $keywords, $description, $status, $slug, $quantity, $minquantity, $price)
+    public function insertProduct($parentId, $userId, $title, $file, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax)
     {
 
-        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug, $quantity, $minquantity, $price)) {
+        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug, $detail, $quantity, $minquantity, $price, $tax)) {
             $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
@@ -115,7 +115,7 @@ class ProductController extends Product
 
         // sanitizing must be done.
         parent::__construct();
-        return $this->insert($parentId, $userId, $title, $keywords, $description, $status, $slug, $quantity, $minquantity, $price);
+        return $this->insert($parentId, $userId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax);
     }
 
     public function deleteProduct($id)
@@ -147,9 +147,9 @@ class ProductController extends Product
         return $this->bringData($id);
     }
 
-    public function updateProduct($id, $parentId, $title, $keywords, $description, $status, $slug, $quantity, $minquantity, $price)
+    public function updateProduct($id, $parentId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax)
     {
-        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug, $quantity, $minquantity, $price)) {
+        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug, $detail, $quantity, $minquantity, $price, $tax)) {
             $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
@@ -166,6 +166,6 @@ class ProductController extends Product
 
         // sanitizing must be done.
         parent::__construct();
-        return $this->update($id, $parentId, $title, $keywords, $description, $status, $slug, $quantity, $minquantity, $price);
+        return $this->update($id, $parentId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax);
     }
 }

@@ -84,9 +84,15 @@ $product =  $obj->bringDataForEdit($id);
 
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="">Slug</label>
                                 <input type="text" class="form-control" placeholder="Enter slug for SEO" name="slug" value="<?= $product["slug"] ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Detail</label>
+                                <textarea id="summernote" name="detail" value=""><?= $product["detail"] ?>
+              </textarea>
                             </div>
                             <div class="form-group">
                                 <label for="">Quantity</label>
@@ -99,6 +105,10 @@ $product =  $obj->bringDataForEdit($id);
                             <div class="form-group">
                                 <label for="">Price</label>
                                 <input type="number" class="form-control" placeholder="price" name="price" value="<?= $product["price"] ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Price</label>
+                                <input type="number" class="form-control" placeholder="Tax" name="tax" value="<?= $product["tax"] ?>">
                             </div>
 
                         </div>

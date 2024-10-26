@@ -46,7 +46,7 @@ $editId = false;
                             <div class="form-group">
                                 <label>Choose Category</label>
                                 <select class="form-control select2" style="width: 100%;" name="parentId">
-                                    <option value="main">Main Category</option>
+                                    <option value="main" disabled selected>Select a category</option>
                                     <?php $obj->getAllCategoryWithTree($parentId, $depth, [], $editId);
                                     ?>
                                 </select>
@@ -83,6 +83,11 @@ $editId = false;
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="">Detail</label>
+                                <textarea id="summernote" name="detail">Place &lt;em&gt;some&lt;/em&gt; &lt;u&gt;text&lt;/u&gt; &lt;strong&gt;here&lt;/strong&gt;
+              </textarea>
+                            </div>
+                            <div class="form-group">
                                 <label for="">Slug</label>
                                 <input type="text" class="form-control" placeholder="Enter slug for SEO" name="slug">
                             </div>
@@ -97,6 +102,10 @@ $editId = false;
                             <div class="form-group">
                                 <label for="">Price</label>
                                 <input type="number" class="form-control" placeholder="price" name="price">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Tax</label>
+                                <input type="text" class="form-control" placeholder="Enter product detail" name="tax" value="18">
                             </div>
 
                         </div>
