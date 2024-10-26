@@ -39,12 +39,12 @@ $products = $productController->getAllProduct();
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="category_add.php" class="btn btn-info btn-xl">Add Category</a><br><br>
+                        <a href="product_add.php" class="btn btn-info btn-xl">Add Product</a><br><br>
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Category</th>
-                                    <!-- <th>Image</th> -->
+                                    <th>Image</th>
                                     <th>Title</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -54,7 +54,7 @@ $products = $productController->getAllProduct();
                                 <?php foreach ($products as $product): ?>
                                     <tr>
                                         <td><?= $productController->getBranch($product["category_id"]) ?></td>
-                                        <!-- <td><img src="" style="width:50px; aspect-ratio:1/1; object-fit:cover;" alt=""></td> -->
+                                        <td><img src="<?= "../images/" . $product["image"] ?>" style="width:50px; aspect-ratio:1/1; object-fit:cover;" alt=""></td>
                                         <td><?= $product["title"] ?></td>
                                         <td><a href="product_edit.php?id=<?= $product["id"] ?>">Edit</a> </td>
                                         <td><a href="/../includes/product-delete.php?id=<?= $product["id"] ?>" onclick="return confirm('Are you sure to delete product?')">Delete</a></td>

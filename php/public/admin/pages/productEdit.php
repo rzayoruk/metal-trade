@@ -75,6 +75,17 @@ $product =  $obj->bringDataForEdit($id);
                                 <label for="description">Description</label>
                                 <input type="text" class="form-control" placeholder="Enter description" name="description" value="<?= $product["description"] ?>">
                             </div>
+                            <div class="form-group">
+                                <label for="">Image :</label> <label width="20"></label>
+                                <img id="imagePreview" style="max-width:150px; aspect-ratio:1/1; object-fit: cover;" src="<?= "../images/" . $product["image"] ?>" alt=""><br> <br>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="exampleInputFile" name="prodImg">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label>Status</label>

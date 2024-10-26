@@ -113,7 +113,7 @@ class Category extends Database
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
-        $path = __DIR__ . "/../../php/public/admin/images/";
+        $path = __DIR__ . "/../../php/public/images/";
 
         $imageFullPath = realpath($path . "/" . $record["image"]);
         if (file_exists($imageFullPath)) {
@@ -158,7 +158,7 @@ class Category extends Database
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([$id]);
             $oldImage = $stmt->fetch(PDO::FETCH_ASSOC);
-            $path = __DIR__ . "/../../php/public/admin/images/";
+            $path = __DIR__ . "/../../php/public/images/";
             $imageFullPath = realpath($path . "/" . $oldImage["image"]);
 
             unlink($imageFullPath);

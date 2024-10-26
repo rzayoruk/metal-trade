@@ -77,7 +77,7 @@ $categoryInfo =  $obj->bringDataForEdit($id);
                             </div>
                             <div class="form-group">
                                 <label for="">Image :</label> <label width="20"></label>
-                                <img id="imagePreview" style="max-width:150px; aspect-ratio:1/1; object-fit: cover;" src="<?= "images/" . $categoryInfo["image"] ?>" alt=""><br> <br>
+                                <img id="imagePreview" style="max-width:150px; aspect-ratio:1/1; object-fit: cover;" src="<?= "../images/" . $categoryInfo["image"] ?>" alt=""><br> <br>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="exampleInputFile" name="catImg">

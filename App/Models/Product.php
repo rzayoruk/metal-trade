@@ -15,7 +15,7 @@ class Product extends Database
     }
     protected function getAll()
     {
-        $sql = "SELECT id, category_id, title FROM products;";
+        $sql = "SELECT id, category_id,image, title FROM products;";
         $stmt = $this->pdo->query($sql);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
@@ -97,19 +97,39 @@ class Product extends Database
         }
     }
 
-    protected function insert($categoryId, $userId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax)
+    protected function insert($categoryId, $userId, $title, $keywords, $description, $imageName, $status, $slug, $detail, $quantity, $minquantity, $price, $tax)
     {
-        if ($categoryId === "main") {
-            $categoryId = null;
-        }
-        $sql = "INSERT INTO products (category_id, user_id , title, keywords, description, status, slug, detail ,quantity, minquantity, price, tax) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        $sql = "INSERT INTO products (category_id, user_id , title, keywords, description, image, status, slug, detail ,quantity, minquantity, price, tax) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         $stmt = $this->pdo->prepare($sql);
-        $rows = $stmt->execute([$categoryId, $userId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax]);
+        $rows = $stmt->execute([$categoryId, $userId, $title, $keywords, $description, $imageName, $status, $slug, $detail, $quantity, $minquantity, $price, $tax]);
         return $rows;
     }
 
     protected function delete($id)
     {
+        //find image name first
+        $sql = "SELECT image FROM products WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($record["image"]) {
+            $path = __DIR__ . "/../../php/public/images/";
+            $imageFullPath = realpath($path . "/" . $record["image"]);
+            if (file_exists($imageFullPath)) {
+
+                if (!unlink($imageFullPath)) {
+                    var_dump("selam");
+                    exit;
+
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+
         $sql = "DELETE from products WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $isOK = $stmt->execute([$id]);
@@ -125,13 +145,29 @@ class Product extends Database
         return $product;
     }
 
-    protected function update($id, $categoryId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax)
+    protected function update($id, $categoryId, $title, $imageName, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax)
     {
 
+        if (!$imageName) {
 
-        $sql = "UPDATE products SET category_id = ? , title = ? , keywords = ? , description = ?, status = ?, slug = ?, detail = ?, quantity = ?, minquantity = ?, price = ?, tax = ? WHERE id = ? ;";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$categoryId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax, $id]);
-        return true;
+            $sql = "UPDATE products SET category_id = ? , title = ? , keywords = ? , description = ?, status = ?, slug = ?, detail = ?, quantity = ?, minquantity = ?, price = ?, tax = ? WHERE id = ? ;";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$categoryId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax, $id]);
+            return true;
+        } else {
+            //remove old image first
+            $sql = "SELECT image FROM products WHERE id = ?";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$id]);
+            $oldImage = $stmt->fetch(PDO::FETCH_ASSOC);
+            $path = __DIR__ . "/../../php/public/images/";
+            $imageFullPath = realpath($path . "/" . $oldImage["image"]);
+
+            unlink($imageFullPath);
+            $sql = "UPDATE products SET category_id = ? , title = ? , keywords = ? ,image = ?, description = ?, status = ?, slug = ?, detail = ?, quantity = ?, minquantity = ?, price = ?, tax = ? WHERE id = ? ;";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([$categoryId, $title, $keywords, $imageName, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax, $id]);
+            return true;
+        }
     }
 }

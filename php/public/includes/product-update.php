@@ -13,7 +13,7 @@ if ($_SESSION["roleId"] != 2) {
 
 
 $obj = new ProductController;
-$isOK = $obj->updateProduct($_POST["id"], $_POST["categoryId"], $_POST["title"], $_POST["keywords"], $_POST["description"], $_POST["status"], $_POST["slug"], $_POST["detail"], $_POST["quantity"], $_POST["minquantity"], $_POST["price"], $_POST["tax"]);
+$isOK = $obj->updateProduct($_POST["id"], $_POST["categoryId"], $_FILES, $_POST["title"], $_POST["keywords"], $_POST["description"], $_POST["status"], $_POST["slug"], $_POST["detail"], $_POST["quantity"], $_POST["minquantity"], $_POST["price"], $_POST["tax"]);
 if ($isOK) {
     $_SESSION["notification"]["text"] = "Category updated successfully.";
     $_SESSION["notification"]["title"] = "Success!";

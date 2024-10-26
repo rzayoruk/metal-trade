@@ -23,4 +23,8 @@ if ($isOK) {
     header("Location:../admin/product_list.php");
     exit();
 }
-return "Some problems have occured";
+$_SESSION["notification"]["text"] = "Unknown Error";
+$_SESSION["notification"]["title"] = "Error!";
+$_SESSION["notification"]["icon"] = "error";
+header("Location:../admin/product_list.php");
+exit();
