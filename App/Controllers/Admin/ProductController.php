@@ -167,7 +167,7 @@ class ProductController extends Product
 
         $imageName = false;
 
-        if ($file["catImg"]["error"] != 4) { //is image exist
+        if ($file["prodImg"]["error"] != 4) { //is image exist
 
             $imageName = $this->isImageValid($file);
         }
