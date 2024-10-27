@@ -18,7 +18,7 @@ if ($isOK) {
     $_SESSION["notification"]["text"] = "Category added successfully.";
     $_SESSION["notification"]["title"] = "Success!";
     $_SESSION["notification"]["icon"] = "success";
-    header("Location:../admin/category_add.php");
+    header("Location:../admin/category_list.php");
     exit();
 }
 return "Some problems have occured";

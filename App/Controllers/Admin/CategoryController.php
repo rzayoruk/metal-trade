@@ -72,12 +72,15 @@ class CategoryController extends Category
 
         if ($file["catImg"]["size"] <= $validFileSize) {
 
-            //$name = uniqid("",true); // it can be an option for large-scale app
+            $name = uniqid(""); // it can be an option for large-scale app
             $absolutePath = realpath(__DIR__ . "/../../../php/public/images");
-            $upload = move_uploaded_file($file["catImg"]["tmp_name"], $absolutePath . "/" . $file["catImg"]["name"]);
+            $exploded = explode(".", $file["catImg"]["name"]);
+            $extension =  $exploded[count($exploded) - 1];
+            $imageName = $name . "." . $extension;
+            $upload = move_uploaded_file($file["catImg"]["tmp_name"], $absolutePath . "/" . $imageName);
             if ($upload) {
                 //echo '<img src= "../images/' . $file["catImg"]["name"] . '" width = "500" height="500">';
-                return $file["catImg"]["name"];
+                return $imageName;
             } else {
 
                 return false;
