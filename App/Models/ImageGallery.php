@@ -15,12 +15,10 @@ class ImageGallery extends Database
     }
     protected function getAll($productId)
     {
-        $sql = "SELECT prod.title,prod.slug  ,im.image, im.title FROM products prod INNER JOIN images im ON  im.product_id = prod.id WHERE prod.id = ?;";
+        $sql = "SELECT im.id AS image_id, prod.id AS product_id, prod.title AS product_title, im.image, im.title AS image_title FROM products prod INNER JOIN images im ON  im.product_id = prod.id WHERE prod.id = ?;";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$productId]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($rows);
-        exit;
         return $rows;
     }
 
