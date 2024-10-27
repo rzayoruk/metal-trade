@@ -2,16 +2,15 @@
 
 namespace App\Controllers\Admin;
 
-use App\Helpers\Database;
-use App\Models\Product;
+use App\Models\ImageGallery;
 
-class ProductController extends Product
+class ImageGalleryController extends ImageGallery
 {
 
-    public function getAllProduct()
+    public function getAllImage($productId)
     {
         parent::__construct();
-        return $this->getAll();
+        return $this->getAll($productId);
     }
 
     public function getBranch($categoryId)
@@ -32,14 +31,14 @@ class ProductController extends Product
         $this->getWithTree($parentId, $depth, $arr, $editId, $categoryId);
     }
 
-    private function isImageValid($file)
+    private function isImageValid($file, $productId)
     {
 
         if ($file["prodImg"]["error"] == 4) {
             $_SESSION["notification"]["text"] = "Product image should be uploaded.";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
-            header("Location:../admin/product_add.php");
+            header("Location:../admin/image_gallery.php?productId=$productId");
             exit;
         }
 
@@ -49,7 +48,7 @@ class ProductController extends Product
             $_SESSION["notification"]["text"] = "Product image must be uploaded to the tmp.";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
-            header("Location:../admin/product_add.php");
+            header("Location:../admin/image_gallery.php?productId=$productId");
             exit;
         }
 
@@ -64,7 +63,7 @@ class ProductController extends Product
             $_SESSION["notification"]["text"] = "image extension is not valid.";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
-            header("Location:../admin/product_add.php");
+            header("Location:../admin/image_gallery.php?productId=$productId");
             exit;
         }
 
@@ -74,10 +73,10 @@ class ProductController extends Product
 
             $name = uniqid(""); // it can be an option for large-scale app
             $absolutePath = realpath(__DIR__ . "/../../../php/public/images");
-                $exploded = explode(".", $file["prodImg"]["name"]);
-                $extension =  $exploded[count($exploded) - 1];
-                $imageName = $name . "." . $extension;
-                $upload = move_uploaded_file($file["prodImg"]["tmp_name"], $absolutePath . "/" . $imageName);
+            $exploded = explode(".", $file["prodImg"]["name"]);
+            $extension =  $exploded[count($exploded) - 1];
+            $imageName = $name . "." . $extension;
+            $upload = move_uploaded_file($file["prodImg"]["tmp_name"], $absolutePath . "/" . $imageName);
             if ($upload) {
                 //echo '<img src= "../images/' . $file["catImg"]["name"] . '" width = "500" height="500">';
                 return $imageName;
@@ -91,39 +90,40 @@ class ProductController extends Product
         }
     }
 
-    private function isValidOthers($parentId, $title, $keywords, $description, $slug, $detail, $quantity, $minquantity, $price, $tax)
+    private function isValidOthers($productId, $title)
     {
-        if (empty($parentId) || empty($title) || empty($keywords) || empty($description)  || empty($slug) || empty($detail) || empty($quantity) || empty($minquantity) || empty($price) || empty($tax)) { //empty Input check
+
+        if (empty($productId) || empty($title)) { //empty Input check
             return false;
         }
         return true;
     }
 
-    public function insertProduct($parentId, $userId, $title, $file, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax)
+    public function insertImage($productId, $title, $file)
     {
 
-        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug, $detail, $quantity, $minquantity, $price, $tax)) {
+        if (!$this->isValidOthers($productId, $title)) {
             $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
-            header("Location:../admin/product_add.php");
+            header("Location:../admin/image_gallery.php?productId=$productId");
             exit;
         }
 
-        $imageName = $this->isImageValid($file);
+        $imageName = $this->isImageValid($file, $productId);
 
         if (!$imageName) {
             $_SESSION["notification"]["text"] = "Something went wrong when the product image uploaded.";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
-            header("Location:../admin/category_add.php");
+            header("Location:../admin/image_gallery.php?productId=$productId");
             exit;
         }
 
 
         // sanitizing must be done.
         parent::__construct();
-        return $this->insert($parentId, $userId, $title, $keywords, $description, $imageName, $status, $slug, $detail, $quantity, $minquantity, $price, $tax);
+        return $this->insert($productId, $title, $imageName);
     }
 
     public function deleteProduct($id)

@@ -1,45 +1,77 @@
 <?php
+include "..//../../autoloader.php";
 
-use App\Controllers\Admin\ProductController;
+use App\Controllers\Admin\ImageGalleryController;
 
-$productController = new ProductController;
-$products = $productController->getAllProduct();
+$obj = new ImageGalleryController;
 
+$productId = $_GET["productId"];
+// var_dump($productId);
+// exit;
+$images = $obj->getAllImage($productId);
+var_dump($images);
+exit;
 ?>
-<div class="row mb-2">
-    <div class="col-sm-6">
-        <h1 class="m-0">Product</h1>
-    </div>
-    <!-- /.col -->
-    <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Products</li>
-        </ol>
-    </div>
-    <!-- /.col -->
-</div>
-<!-- /.row -->
-</div>
-<!-- /.container-fluid -->
-</div>
-<!-- /.content-header -->
+
 
 <!-- Main content -->
 <section class="content">
+    <h1 style="text-align:center;">Add New Image</h1>
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form action='../includes/image-gallery-add.php?productId=<?= $_GET['productId'] ?>' method="post" enctype="multipart/form-data">
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" placeholder="Enter title" name="title">
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="">Image :</label> <label width="20"></label>
+                                <img id="imagePreview" style="max-width:150px; aspect-ratio:1/1; object-fit: cover;" src="" alt=""><br> <br>
+                                <div class="input-group">
+
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="exampleInputFile" name="prodImg">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+
+
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">DataTable with default features</h3>
+                        <h2 class="card-title">Gallery Images</h2>
 
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="product_add.php" class="btn btn-info btn-xl">Add Product</a><br><br>
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -52,20 +84,12 @@ $products = $productController->getAllProduct();
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($products as $product): ?>
+                                <?php foreach ($images as $image): ?>
                                     <tr>
-                                        <td><?= $productController->getBranch($product["category_id"]) ?></td>
+                                        <td></td>
                                         <td><img src="<?= "../images/" . $product["image"] ?>" style="width:50px; aspect-ratio:1/1; object-fit:cover;" alt=""></td>
                                         <td><?= $product["title"] ?></td>
-                                        <td><a style="cursor:pointer;" onclick="window.open('image_gallery.php?productId=<?= $product['id'] ?>','_blank','width=1000, height=650')"><svg width=40 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve">
-                                                    <path style="fill:#e4eaf8" d="M485.083 448.43H26.917c-10.122 0-18.327-8.205-18.327-18.327V81.897c0-10.122 8.205-18.327 18.327-18.327h458.166c10.122 0 18.327 8.205 18.327 18.327v348.206c-.001 10.122-8.205 18.327-18.327 18.327z" />
-                                                    <circle style="fill:#fff" cx="118.55" cy="173.53" r="45.817" />
-                                                    <path style="fill:#b4e66e" d="M265.163 191.857 45.244 411.776h174.103l132.868-132.868z" />
-                                                    <path style="fill:#a0d755" d="M315.562 242.255 146.04 411.776h73.307l132.868-132.868z" />
-                                                    <path style="fill:#b4e66e" d="M466.756 136.877v265.736a9.164 9.164 0 0 1-9.163 9.163H191.857l274.899-274.899z" />
-                                                    <path d="M485.083 54.98H26.917C12.075 54.98 0 67.055 0 81.897v348.206c0 14.842 12.075 26.917 26.917 26.917h458.166c14.842 0 26.917-12.075 26.917-26.917V81.897c0-14.842-12.075-26.917-26.917-26.917zm9.736 375.123c0 5.369-4.367 9.736-9.736 9.736H26.917c-5.369 0-9.736-4.367-9.736-9.736V81.897c0-5.369 4.367-9.736 9.736-9.736h458.166c5.369 0 9.736 4.367 9.736 9.736v348.206z" />
-                                                    <path d="M470.043 128.94a8.589 8.589 0 0 0-9.361 1.862L222.436 369.049a8.59 8.59 0 0 0 0 12.148 8.59 8.59 0 0 0 12.148 0l223.581-223.581v245.57H65.983l199.181-199.181 39.742 39.742a8.59 8.59 0 0 0 12.148 0 8.59 8.59 0 0 0 0-12.148l-45.817-45.817a8.59 8.59 0 0 0-12.148 0L39.17 405.702a8.589 8.589 0 0 0 6.075 14.664h421.512a8.591 8.591 0 0 0 8.591-8.591V136.877a8.594 8.594 0 0 0-5.305-7.937zM118.55 227.937c30 0 54.407-24.408 54.407-54.407 0-7.528-1.511-14.82-4.491-21.676-1.891-4.351-6.953-6.347-11.303-4.453a8.589 8.589 0 0 0-4.453 11.303 36.97 36.97 0 0 1 3.066 14.825c0 20.526-16.7 37.226-37.226 37.226s-37.226-16.699-37.226-37.225 16.7-37.226 37.226-37.226c5.03 0 9.903.983 14.487 2.922a8.588 8.588 0 0 0 11.258-4.564 8.59 8.59 0 0 0-4.564-11.258c-6.713-2.841-13.839-4.28-21.181-4.28-30 0-54.407 24.408-54.407 54.407 0 29.999 24.408 54.406 54.407 54.406z" />
-                                                </svg></a></td>
+
 
                                         <td><a href="product_edit.php?id=<?= $product["id"] ?>"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" width=40>
                                                     <path style="fill:#e4eaf8" d="M411.422 82.267H26.894c-10.113 0-18.311 8.198-18.311 18.311v384.528c0 10.113 8.198 18.311 18.311 18.311h384.528c10.113 0 18.311-8.198 18.311-18.311V100.578c0-10.113-8.199-18.311-18.311-18.311z" />
