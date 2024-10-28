@@ -13,9 +13,9 @@ class Category extends Database
     {
         $this->pdo = (new Database)->getPdo();
     }
-    protected function getAll()
+    protected function getAll() // it should be tree logic
     {
-        $sql = "SELECT id, parent_id, image, title FROM categories;";
+        $sql = "SELECT id, parent_id, image, title FROM categories";
         $stmt = $this->pdo->query($sql);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
@@ -24,6 +24,11 @@ class Category extends Database
     protected function getSpecificBranch($parentId, $title)
     {
 
+        if ($parentId === null) {
+
+            return $title;
+        }
+
         $sql = "SELECT id, parent_id, title FROM categories WHERE id = :parentId";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':parentId' => $parentId]);
@@ -31,10 +36,7 @@ class Category extends Database
         $parentCategory = $stmt->fetch(PDO::FETCH_ASSOC);
         // var_dump($parentCategory);
         // exit;
-        if ($parentId === null) {
 
-            return $title;
-        }
 
         $title = $parentCategory["title"] . " > " . $title;
 
@@ -66,7 +68,7 @@ class Category extends Database
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
         } else {
-            $sql = "SELECT id, parent_id, title FROM categories WHERE parent_id = :parentId ;";
+            $sql = "SELECT id, parent_id, title FROM categories WHERE parent_id = :parentId  ORDER BY created_at;";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([':parentId' => $rootId]);
         }
@@ -86,17 +88,13 @@ class Category extends Database
 
             $selected = ""; // for editpage
 
-            if ($constParent !== false && $category["id"] == $constParent) { // for editpage
-                $selected = "selected";
-                echo '<option value="' . $category["id"] . '" '  . " " . $selected . ' >' . implode(" > ", $currentPath) . '</option>' . "<br>";
-                return;
+            if ($constParent == false || $category["id"] !== $constParent) { // for editpage
+
+                echo '<option value="' . $category["id"] . '">' . implode(" > ", $currentPath) . '</option>';
+                $this->getWithTree($category["id"], $currentPath, $constParent);
+            } else {
+                echo '<option value="' . $category["id"] . ' " selected >' . implode(" > ", $currentPath) . '</option>';
             }
-
-
-
-            echo '<option value="' . $category["id"] . '" ' . " " . $selected . ' >' . implode(" > ", $currentPath) . '</option>' . "<br>";
-
-            $this->getWithTree($category["id"], $currentPath, $constParent);
         }
     }
 
