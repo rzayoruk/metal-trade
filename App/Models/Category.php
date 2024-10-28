@@ -47,8 +47,13 @@ class Category extends Database
 
         $sql = "SELECT parent_id FROM categories WHERE id = ?;";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$editId]);
+        $stmt->execute([(int) $editId]);
         $parentConst = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($parentConst === false) {
+            return null; // veya uygun bir varsayılan değer döndürebilirsiniz
+        }
+
         return $parentConst["parent_id"];
     }
 
@@ -57,7 +62,7 @@ class Category extends Database
     {
         // var_dump($constParent);exit;
         if ($rootId === null) {
-            $sql = "SELECT id, parent_id, title FROM categories WHERE parent_id is NULL";
+            $sql = "SELECT id, parent_id, title FROM categories WHERE parent_id is NULL ORDER BY created_at";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
         } else {
@@ -79,7 +84,7 @@ class Category extends Database
             $currentPath = is_array($arr) ? $arr : [];
             $currentPath[] = $category["title"];
 
-            $selected = "";// for editpage
+            $selected = ""; // for editpage
 
             if ($constParent !== false && $category["id"] == $constParent) { // for editpage
                 $selected = "selected";

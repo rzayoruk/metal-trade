@@ -9,6 +9,13 @@ $obj = new CategoryController;
 $rootId = null;
 $arr = [];
 $id = $_GET["id"];
+if (!is_numeric($id)) {
+    $_SESSION["notification"]["text"] = "Invalid Input";
+    $_SESSION["notification"]["icon"] = "error";
+    $_SESSION["notification"]["title"] = "Error!";
+    header("Location: ../category_add.php");
+    exit;
+}
 
 $categoryInfo =  $obj->bringDataForEdit($id);
 
