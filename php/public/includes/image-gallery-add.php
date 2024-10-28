@@ -17,8 +17,10 @@ if ($_SESSION["roleId"] != 2) {
 
 
 $obj = new ImageGalleryController;
+$productId = $_GET["productId"];
 
 $isOK = $obj->insertImage($_GET["productId"], $_POST["title"], $_FILES);
+
 if ($isOK) {
     $_SESSION["notification"]["text"] = "Image is added to the gallery successfully.";
     $_SESSION["notification"]["title"] = "Success!";

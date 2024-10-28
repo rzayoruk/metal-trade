@@ -126,10 +126,10 @@ class ImageGalleryController extends ImageGallery
         return $this->insert($productId, $title, $imageName);
     }
 
-    public function deleteProduct($id)
+    public function deleteImage($imageId, $productId)
     {
 
-        if (!preg_match('/^\d{1,7}$/', $id)) {
+        if (!preg_match('/^\d{1,7}$/', $imageId) || !preg_match('/^\d{1,7}$/', $productId)) {
             $_SESSION["notification"]["text"] = "wrong id format!";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
@@ -138,7 +138,7 @@ class ImageGalleryController extends ImageGallery
         }
 
         parent::__construct();
-        return $this->delete($id);
+        return $this->delete($imageId);
     }
 
     public function bringDataForEdit($id)

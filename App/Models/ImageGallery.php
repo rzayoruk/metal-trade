@@ -17,7 +17,7 @@ class ImageGallery extends Database
     {
         $sql = "SELECT im.id AS image_id, prod.id AS product_id, prod.title AS product_title, im.image, im.title AS image_title FROM products prod INNER JOIN images im ON  im.product_id = prod.id WHERE prod.id = ?;";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$productId]);
+        $stmt->execute([(int) $productId]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
     }
@@ -106,12 +106,12 @@ class ImageGallery extends Database
         return $rows;
     }
 
-    protected function delete($id)
+    protected function delete($imageId)
     {
         //find image name first
-        $sql = "SELECT image FROM products WHERE id = ?";
+        $sql = "SELECT image FROM images WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$id]);
+        $stmt->execute([$imageId]);
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
@@ -126,17 +126,16 @@ class ImageGallery extends Database
 
                     return false;
                 }
-            } else {
-                return false;
             }
         }
 
 
-        $sql = "DELETE from products WHERE id = ?";
+        $sql = "DELETE from images WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
-        $isOK = $stmt->execute([$id]);
+        $isOK = $stmt->execute([$imageId]);
         return $isOK;
     }
+
     protected function bringData($id)
     {
         $sql = "SELECT * from products WHERE id = ?;";
