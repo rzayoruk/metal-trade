@@ -16,25 +16,22 @@ class CategoryController extends Category
 
     public function getBranch($parentId, $title)
     {
-        $branch = $this->getSpecificBranch($parentId, $title);
-        // if (!$branch) {
-        //     echo "branch error";
-        //     exit;
-        // }
-        return $branch;
+        return $this->getSpecificBranch($parentId, $title);
     }
+
     private function getParentIdWithId($editId)
     {
-        $this->getPIdWithId($editId);
+        return $this->getPIdWithId($editId);
     }
-    public function getAllCategoryWithTree($parentId, $depth, $arr, $editId)
+
+    public function getAllCategoryWithTree($rootId, $arr, $editId)
     {
         parent::__construct();
         $constParent = false;
         if ($editId !== false) {
             $constParent = $this->getParentIdWithId($editId);
-        }
-        $this->getWithTree($parentId, $depth, $arr, $editId, $constParent);
+        } // $constParent id is for edit page
+        $this->getWithTree($rootId, $arr, $constParent);
     }
 
     private function isImageValid($file)

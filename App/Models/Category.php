@@ -53,17 +53,17 @@ class Category extends Database
     }
 
 
-    public function getWithTree($parentId, $depth, $arr, $editId, $constParent = false)
+    public function getWithTree($rootId, $arr, $constParent = false)
     {
-
-        if ($parentId === null) {
-            $sql = "SELECT id,parent_id, title FROM categories WHERE parent_id is NULL";
+        // var_dump($constParent);exit;
+        if ($rootId === null) {
+            $sql = "SELECT id, parent_id, title FROM categories WHERE parent_id is NULL";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
         } else {
-            $sql = "SELECT id,parent_id, title FROM categories WHERE parent_id = :parentId ;";
+            $sql = "SELECT id, parent_id, title FROM categories WHERE parent_id = :parentId ;";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([':parentId' => $parentId]);
+            $stmt->execute([':parentId' => $rootId]);
         }
 
         $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -79,18 +79,19 @@ class Category extends Database
             $currentPath = is_array($arr) ? $arr : [];
             $currentPath[] = $category["title"];
 
-            //echo implode(" > ", $currentPath) . "<br>";
+            $selected = "";// for editpage
 
-            $disabled = $category["id"] == $editId ? "disabled" : ""; //for edit page
+            if ($constParent !== false && $category["id"] == $constParent) { // for editpage
+                $selected = "selected";
+                echo '<option value="' . $category["id"] . '" '  . " " . $selected . ' >' . implode(" > ", $currentPath) . '</option>' . "<br>";
+                return;
+            }
 
-            if ($constParent !== false)
-                $selected = $category["id"] == $constParent ? "selected" : ""; //for edit page
-            else
-                $selected = "";
 
-            echo '<option value="' . $category["id"] . '" ' . $disabled . " " . $selected . ' >' . implode(" > ", $currentPath) . '</option>' . "<br>";
 
-            $this->getWithTree($category["id"], $depth + 1, $currentPath, $editId, $constParent);
+            echo '<option value="' . $category["id"] . '" ' . " " . $selected . ' >' . implode(" > ", $currentPath) . '</option>' . "<br>";
+
+            $this->getWithTree($category["id"], $currentPath, $constParent);
         }
     }
 

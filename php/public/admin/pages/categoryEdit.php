@@ -6,8 +6,7 @@ use App\Controllers\Admin\CategoryController;
 
 $obj = new CategoryController;
 
-$parentId = null;
-$depth = 1;
+$rootId = null;
 $arr = [];
 $id = $_GET["id"];
 
@@ -54,7 +53,7 @@ $categoryInfo =  $obj->bringDataForEdit($id);
                                 <label>Parent Category</label>
                                 <select class="form-control select2" style="width: 100%;" name="parentId">
                                     <option value="main">Main Category</option>
-                                    <?php $obj->getAllCategoryWithTree($parentId, $depth, $arr, $id);
+                                    <?php $obj->getAllCategoryWithTree($rootId, $arr, $categoryInfo["id"]);
                                     ?>
                                 </select>
                             </div>
