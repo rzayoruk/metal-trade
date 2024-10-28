@@ -31,7 +31,7 @@ class CategoryController extends Category
         if ($editId !== false) {
             $constParent = $this->getParentIdWithId($editId);
         } // $constParent id is for edit page
-        $this->getWithTree($rootId, $arr, $constParent);
+        $this->getWithTree($rootId, $arr, $editId, $constParent);
     }
 
     private function isImageValid($file)
