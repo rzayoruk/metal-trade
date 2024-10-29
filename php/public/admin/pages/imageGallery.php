@@ -84,12 +84,19 @@ $images = $obj->getAllImage($productId);
                             <tbody>
                                 <?php foreach ($images as $image): ?>
                                     <tr>
-                                        <td><?= $image["product_title"] ?></td>
-                                        <td><img src="<?= "../images/" . $image["image"] ?>" style="width:50px; aspect-ratio:1/1; object-fit:cover;" alt=""></td>
-                                        <td><?= $image["image_title"] ?></td>
+                                        <td class="productName"><?= $image["product_title"] ?></td>
+                                        <td class="image">
 
+                                            <img class="galleryPreview" style="max-width:50px; aspect-ratio:1/1; object-fit: cover;" src="<?= "../images/" . $image["image"] ?>" alt=""><br> <br>
+                                            <input type="file" class="imageInput" style="display:none;">
+                                        </td>
 
-                                        <td><a href="product_edit.php?id=<?= $product["id"] ?>"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" width=40>
+                                        <td class="imageTitle">
+                                            <p><?= $image["image_title"] ?></p>
+                                        </td>
+
+                                        <td class="display:flex; justify-content:between;">
+                                            <a onclick="editRow(this)" style="cursor:pointer;" class="editIcon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" width=40>
                                                     <path style="fill:#e4eaf8" d="M411.422 82.267H26.894c-10.113 0-18.311 8.198-18.311 18.311v384.528c0 10.113 8.198 18.311 18.311 18.311h384.528c10.113 0 18.311-8.198 18.311-18.311V100.578c0-10.113-8.199-18.311-18.311-18.311z" />
                                                     <path style="fill:#5b5d6e" d="m472.158 13.947 25.895 25.895c7.15 7.152 7.15 18.746 0 25.896L265.456 298.335a36.597 36.597 0 0 1-14.315 8.846l-40.698 13.566-19.192-19.192 13.566-40.698a36.628 36.628 0 0 1 8.846-14.314l232.6-232.596c7.15-7.151 18.744-7.151 25.895 0z" />
                                                     <path style="fill:#707487" d="M200.847 311.153 485.106 26.894l12.948 12.947c7.15 7.152 7.15 18.746 0 25.896L265.456 298.335a36.597 36.597 0 0 1-14.315 8.846l-40.698 13.566-9.596-9.594z" />
@@ -101,7 +108,36 @@ $images = $obj->getAllImage($productId);
                                                     <path transform="rotate(134.999 453.408 84.49)" style="fill:#5b5d6e" d="M435.097 66.18h36.618v36.621h-36.618z" />
                                                     <path d="M429.733 183.549a8.583 8.583 0 0 0-8.583 8.583v18.31a8.583 8.583 0 0 0 17.166 0v-18.31a8.583 8.583 0 0 0-8.583-8.583zM429.733 238.482a8.583 8.583 0 0 0-8.583 8.583v238.041c0 5.364-4.364 9.728-9.728 9.728H26.894c-5.364 0-9.728-4.364-9.728-9.728V100.578c0-5.364 4.364-9.728 9.728-9.728h238.041a8.583 8.583 0 0 0 0-17.166H26.894C12.065 73.684 0 85.749 0 100.578v384.528C0 499.935 12.065 512 26.894 512h384.528c14.83 0 26.894-12.065 26.894-26.894V247.065a8.583 8.583 0 0 0-8.583-8.583zM301.558 90.85h18.31a8.583 8.583 0 0 0 0-17.166h-18.31a8.583 8.583 0 0 0 0 17.166z" />
                                                     <path d="M512 52.789c0-7.184-2.798-13.938-7.877-19.017L478.228 7.877C473.148 2.798 466.395 0 459.21 0c-7.185 0-13.938 2.798-19.017 7.877L207.596 240.475a45.413 45.413 0 0 0-10.921 17.67l-23.162 69.485a8.583 8.583 0 0 0 10.857 10.856l69.485-23.162a45.431 45.431 0 0 0 17.669-10.92L504.122 71.807c5.08-5.08 7.878-11.833 7.878-19.018zm-59.264 46.126-39.652-39.652 13.757-13.757 39.652 39.652-13.757 13.757zM265.815 285.836l-39.652-39.652L400.946 71.402l39.652 39.652-174.783 174.782zm-70.588 30.937 17.734-53.2a27.997 27.997 0 0 1 1.908-4.407l37.965 37.965a27.904 27.904 0 0 1-4.407 1.908l-53.2 17.734zM491.984 59.668 478.632 73.02 438.98 33.368l13.352-13.352a9.663 9.663 0 0 1 6.878-2.85 9.663 9.663 0 0 1 6.879 2.85l25.895 25.895c1.837 1.837 2.85 4.28 2.85 6.879s-1.013 5.04-2.85 6.878z" />
-                                                </svg></a> </td>
+                                                </svg>
+                                            </a>
+
+                                            <svg style="display:none; cursor:pointer; margin-right:16px;" class="updateBttn" width=40 version="1.1" id="Icon_Set" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 64 64" style="enable-background:new 0 0 64 64" xml:space="preserve">
+                                                <style>
+                                                    .st1 {
+                                                        fill: #263238
+                                                    }
+                                                </style>
+                                                <path class="st1" d="M4 32.5a.5.5 0 0 1-.5-.5C3.5 16.285 16.285 3.5 32 3.5a.5.5 0 0 1 0 1C16.836 4.5 4.5 16.836 4.5 32a.5.5 0 0 1-.5.5zM35 4.5h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1zM32 60.5a.5.5 0 0 1 0-1c15.163 0 27.5-12.336 27.5-27.5a.5.5 0 0 1 1 0c0 15.715-12.785 28.5-28.5 28.5zM30 60.5h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1z" />
+                                                <path class="st1" d="M32 56.5C18.491 56.5 7.5 45.509 7.5 32S18.491 7.5 32 7.5c13.51 0 24.5 10.991 24.5 24.5S45.51 56.5 32 56.5zm0-48C19.042 8.5 8.5 19.042 8.5 32S19.042 55.5 32 55.5 55.5 44.958 55.5 32 44.958 8.5 32 8.5z" />
+                                                <path d="M32 14c-9.941 0-18 8.059-18 18s8.059 18 18 18 18-8.059 18-18-8.059-18-18-18z" style="fill:#4db6ac" />
+                                                <path class="st1" d="M32 50.5c-10.201 0-18.5-8.299-18.5-18.5S21.799 13.5 32 13.5 50.5 21.799 50.5 32 42.201 50.5 32 50.5zm0-36c-9.649 0-17.5 7.851-17.5 17.5S22.351 49.5 32 49.5 49.5 41.649 49.5 32 41.649 14.5 32 14.5zM53 6.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1z" />
+                                                <path class="st1" d="M51 8.5a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 1 0v4a.5.5 0 0 1-.5.5zM60 13h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1z" />
+                                                <path class="st1" d="M58 15a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 1 0v4a.5.5 0 0 1-.5.5z" />
+                                                <g>
+                                                    <path d="M28.995 39.864c-.384 0-.768-.146-1.061-.439l-6.718-6.717a1.5 1.5 0 1 1 2.121-2.121l5.657 5.657 11.667-11.667a1.5 1.5 0 1 1 2.121 2.121L30.056 39.424c-.293.293-.677.44-1.061.44z" style="fill:#fff" />
+                                                    <path class="st1" d="M28.995 40.364a1.986 1.986 0 0 1-1.414-.586l-6.718-6.717a1.983 1.983 0 0 1-.586-1.414c0-.534.208-1.036.586-1.414.756-.756 2.072-.756 2.828 0l5.304 5.303 11.313-11.313c.756-.756 2.072-.756 2.828 0 .378.377.586.88.586 1.414s-.208 1.037-.586 1.414L30.409 39.778c-.378.378-.88.586-1.414.586zm-6.718-9.718c-.267 0-.518.104-.707.293s-.293.44-.293.707.104.518.293.707l6.718 6.717a1.023 1.023 0 0 0 1.414 0L42.43 26.343a.997.997 0 0 0 0-1.414 1 1 0 0 0-1.414 0L29.349 36.596a.5.5 0 0 1-.707 0l-5.657-5.657a.997.997 0 0 0-.708-.293z" />
+                                                </g>
+                                            </svg>
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none; cursor:pointer;" width=24 class="cancelBttn" onclick="cancel(this)">
+                                                <g data-name="5.Cancel">
+                                                    <path d="M12 24a12 12 0 1 1 12-12 12.013 12.013 0 0 1-12 12zm0-22a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2z" />
+                                                    <path d="m7.292 8.707 1.415-1.414 8 8-1.414 1.414z" />
+                                                    <path d="m7.292 15.293 8-8 1.415 1.414-8 8z" />
+                                                </g>
+                                            </svg>
+
+                                        </td>
                                         <td><a href="/../includes/image-gallery-delete.php?imageId=<?= $image["image_id"] ?>&productId=<?= $image["product_id"] ?>" onclick="return confirm('Are you sure to delete product?')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" width=40>
                                                     <path style="fill:#afb9d2" d="M427.435 74.773a17.69 17.69 0 0 0-17.164-13.401H101.729a17.69 17.69 0 0 0-17.163 13.401l-5.497 21.985h8.847l16.59 381.559c.618 14.195 12.306 25.388 26.514 25.388h249.964c14.209 0 25.896-11.191 26.514-25.388l16.59-381.559h8.847l-5.5-21.985z" />
                                                     <path style="fill:#959cb5" d="M212.715 478.317 202.48 96.757H88.299l16.205 381.559c.618 14.195 12.306 25.388 26.514 25.388h98.442c-8.974-.001-16.357-11.192-16.745-25.387z" />
@@ -114,6 +150,57 @@ $images = $obj->getAllImage($productId);
                             </tbody>
 
                         </table>
+                        <script>
+                            function editRow(editIcon) {
+                                let cancelButtons = document.getElementsByClassName("cancelBttn");
+
+                                for (cnclBttn of cancelButtons) { //we couldn't reach element of HTMLCollection with foreach like an array.
+                                    cnclBttn.style.display !== "none" ? cancel(cnclBttn) : false;
+                                }
+
+                                let row = editIcon.closest("tr");
+
+
+                                titleElem = row.querySelector(".imageTitle");
+                                pTag = titleElem.querySelector("p"); // image title in p tag
+                                let text = pTag.textContent;
+                                pTag.style.display = "none";
+
+                                // Create the input element
+                                if (!row.querySelector(".imageTitleInput")) {
+                                    const input = document.createElement('input');
+                                    input.className = 'imageTitleInput';
+                                    input.name = 'imageTitle';
+                                    input.type = 'text';
+                                    input.value = text;
+                                    titleElem.appendChild(input);
+                                } else {
+
+                                    row.querySelector(".imageTitleInput").style.display = "inline-block";
+                                }
+
+                                //
+                                editIcon.style.display = "none";
+                                row.querySelector(".imageInput").style.display = "inline-block"; //fileInput
+                                row.querySelector(".updateBttn").style.display = "inline-block";
+                                row.querySelector(".cancelBttn").style.display = "inline-block";
+                            }
+
+                            function cancel(cancelIcon) {
+                                let row = cancelIcon.closest("tr");
+                                pTag = row.querySelector("p");
+
+                                input = row.querySelector(".imageTitleInput");
+                                input.style.display = "none";
+
+
+                                row.querySelector(".editIcon").style.display = "inline-block";
+                                pTag.style.display = "block";
+                                row.querySelector(".updateBttn").style.display = "none";
+                                row.querySelector(".imageInput").style.display = "none"; //fileInput
+                                cancelIcon.style.display = "none";
+                            }
+                        </script>
                     </div>
                     <!-- /.card-body -->
                 </div>

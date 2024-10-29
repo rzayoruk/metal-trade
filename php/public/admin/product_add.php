@@ -9,7 +9,6 @@ $scripts = [
     "plugins/bootstrap/js/bootstrap.bundle.min.js",
     "plugins/bs-custom-file-input/bs-custom-file-input.min.js",
     "dist/js/adminlte.min.js",
-    "dist/js/demo.js",
     "plugins/summernote/summernote-bs4.min.js",
     "plugins/codemirror/codemirror.js",
     "plugins/codemirror/mode/css/css.js",

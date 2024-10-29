@@ -1,33 +1,31 @@
 <?php
 session_start();
 if ($_SESSION["roleId"] !== 2) {
-    header("Location: ../index.php");
+  header("Location: ../index.php");
 }
 $content = 'pages/productEdit.php';
 $scripts = [
-    "plugins/jquery/jquery.min.js",
-    "plugins/bootstrap/js/bootstrap.bundle.min.js",
-    "plugins/bs-custom-file-input/bs-custom-file-input.min.js",
-    "dist/js/adminlte.min.js",
-    "dist/js/demo.js",
-    "plugins/summernote/summernote-bs4.min.js",
-    "plugins/codemirror/codemirror.js",
-    "plugins/codemirror/mode/css/css.js",
-    "plugins/codemirror/mode/xml/xml.js",
-    "plugins/codemirror/mode/htmlmixed/htmlmixed.js",
+  "plugins/jquery/jquery.min.js",
+  "plugins/bootstrap/js/bootstrap.bundle.min.js",
+  "plugins/bs-custom-file-input/bs-custom-file-input.min.js",
+  "dist/js/adminlte.min.js",
+  "plugins/summernote/summernote-bs4.min.js",
+  "plugins/codemirror/codemirror.js",
+  "plugins/codemirror/mode/css/css.js",
+  "plugins/codemirror/mode/xml/xml.js",
+  "plugins/codemirror/mode/htmlmixed/htmlmixed.js",
 ];
 $singles = [
-    "
+  "
 <script>
 $(function () {
   bsCustomFileInput.init();
 });
 </script>
 ",
-    "<script>
+  "<script>
     const fileInput = document.getElementById('exampleInputFile');
     const imagePreview = document.getElementById('imagePreview');
-
     fileInput.addEventListener('change', function() {
         const file = this.files[0];
 
@@ -42,7 +40,7 @@ $(function () {
         }
     });
 </script>",
-    "<script>
+  "<script>
 
   $(function () {
     // Summernote

@@ -81,7 +81,7 @@ class Category extends Database
 
 
 
-        foreach ($categories as $index => $category) {
+        foreach ($categories as $category) {
 
             if ($category["id"] == $editId) {
                 return;

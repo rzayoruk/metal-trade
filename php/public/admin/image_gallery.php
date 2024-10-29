@@ -72,7 +72,6 @@ if ($_SESSION["roleId"] !== 2) {
         "plugins/datatables-buttons/js/buttons.print.min.js",
         "plugins/datatables-buttons/js/buttons.colVis.min.js",
         "dist/js/adminlte.min.js",
-        "dist/js/demo.js",
     ];
     $singles = [
         '<script>

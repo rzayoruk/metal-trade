@@ -7,7 +7,6 @@ use App\Controllers\Admin\CategoryController;
 $obj = new CategoryController;
 
 $rootId = null;
-$arr = [];
 $id = $_GET["id"];
 if (!is_numeric($id)) {
     $_SESSION["notification"]["text"] = "Invalid Input";
@@ -60,7 +59,7 @@ $categoryInfo =  $obj->bringDataForEdit($id);
                                 <label>Parent Category</label>
                                 <select class="form-control select2" style="width: 100%;" name="parentId">
                                     <option value="main">Main Category</option>
-                                    <?php $obj->getAllCategoryWithTree($rootId, $arr, $categoryInfo["id"]);
+                                    <?php $obj->getAllCategoryWithTree($rootId, [], $categoryInfo["id"]);
                                     ?>
                                 </select>
                             </div>

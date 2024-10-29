@@ -5,7 +5,6 @@ use App\Controllers\Admin\CategoryController;
 $obj = new CategoryController;
 
 $parentId = null;
-$depth = 1;
 $editId = false;
 
 ?>
@@ -47,7 +46,7 @@ $editId = false;
                                 <label>Choose Category</label>
                                 <select class="form-control select2" style="width: 100%;" name="parentId">
                                     <option value="main" disabled selected>Select a category</option>
-                                    <?php $obj->getAllCategoryWithTree($parentId, $depth, [], $editId);
+                                    <?php $obj->getAllCategoryWithTree($parentId, [], $editId);
                                     ?>
                                 </select>
                             </div>
