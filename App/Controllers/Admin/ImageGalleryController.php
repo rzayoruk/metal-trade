@@ -94,21 +94,26 @@ class ImageGalleryController extends ImageGallery
     {
 
         if (empty($productId) || empty($title)) { //empty Input check
+
             return false;
         }
+
         return true;
     }
 
     public function insertImage($productId, $title, $file)
     {
 
+
         if (!$this->isValidOthers($productId, $title)) {
+
             $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
             $_SESSION["notification"]["icon"] = "error";
             $_SESSION["notification"]["title"] = "Error!";
             header("Location:../admin/image_gallery.php?productId=$productId");
             exit;
         }
+
 
         $imageName = $this->isImageValid($file, $productId);
 
@@ -141,39 +146,30 @@ class ImageGalleryController extends ImageGallery
         return $this->delete($imageId);
     }
 
-    public function bringDataForEdit($id)
-    {
-        if (!preg_match('/^\d{1,7}$/', $id)) {
-            $_SESSION["notification"]["text"] = "wrong id format!";
-            $_SESSION["notification"]["icon"] = "error";
-            $_SESSION["notification"]["title"] = "Error!";
-            header("Location:../admin/product_list.php");
-            exit;
-        }
 
-        parent::__construct();
-        return $this->bringData($id);
-    }
-
-    public function updateProduct($id, $parentId, $file, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax)
+    public function updateImage($productId, $imageId, $file, $title)
     {
-        if (!$this->isValidOthers($parentId, $title, $keywords, $description, $slug, $detail, $quantity, $minquantity, $price, $tax)) {
-            $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
-            $_SESSION["notification"]["icon"] = "error";
-            $_SESSION["notification"]["title"] = "Error!";
-            header("Location:../admin/product_list.php");
+
+        if (!$this->isValidOthers($imageId, $title)) {
+            // $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
+            // $_SESSION["notification"]["icon"] = "error";
+            // $_SESSION["notification"]["title"] = "Error!";
+            http_response_code(400);
+            echo json_encode([
+                "statusCode" => "400",
+                "error" => "any input can not be null.",
+            ]);
             exit;
         }
 
         $imageName = false;
+        if ($file && $file["prodImg"]["error"] != 4) { //is image exist
 
-        if ($file["catImg"]["error"] != 4) { //is image exist
-
-            $imageName = $this->isImageValid($file);
+            $imageName = $this->isImageValid($file, $productId);
         }
-
+     
         // sanitizing must be done.
         parent::__construct();
-        return $this->update($id, $parentId, $title, $imageName, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax);
+        return $this->update($imageId, $title, $imageName);
     }
 }

@@ -146,29 +146,29 @@ class ImageGallery extends Database
         return $product;
     }
 
-    protected function update($id, $categoryId, $title, $imageName, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax)
+    protected function update($imageId, $title, $imageName)
     {
 
         if (!$imageName) {
 
-            $sql = "UPDATE products SET category_id = ? , title = ? , keywords = ? , description = ?, status = ?, slug = ?, detail = ?, quantity = ?, minquantity = ?, price = ?, tax = ? WHERE id = ? ;";
+            $sql = "UPDATE images SET  title = ?  WHERE id = ? ;";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$categoryId, $title, $keywords, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax, $id]);
-            return true;
+            $stmt->execute([$title, $imageId]);
+            return $title;
         } else {
             //remove old image first
-            $sql = "SELECT image FROM products WHERE id = ?";
+            $sql = "SELECT image FROM images WHERE id = ?";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$id]);
+            $stmt->execute([$imageId]);
             $oldImage = $stmt->fetch(PDO::FETCH_ASSOC);
             $path = __DIR__ . "/../../php/public/images/";
             $imageFullPath = realpath($path . "/" . $oldImage["image"]);
 
             unlink($imageFullPath);
-            $sql = "UPDATE products SET category_id = ? , title = ? , keywords = ? ,image = ?, description = ?, status = ?, slug = ?, detail = ?, quantity = ?, minquantity = ?, price = ?, tax = ? WHERE id = ? ;";
+            $sql = "UPDATE images SET title = ?  ,image = ? WHERE id = ? ;";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$categoryId, $title, $keywords, $imageName, $description, $status, $slug, $detail, $quantity, $minquantity, $price, $tax, $id]);
-            return true;
+            $stmt->execute([$title,  $imageName, $imageId]);
+            return ["title" => $title, "imageName" => $imageName];
         }
     }
 }
