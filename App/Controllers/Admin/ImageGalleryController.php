@@ -131,15 +131,16 @@ class ImageGalleryController extends ImageGallery
         return $this->insert($productId, $title, $imageName);
     }
 
-    public function deleteImage($imageId, $productId)
+    public function deleteImage($imageId)
     {
 
-        if (!preg_match('/^\d{1,7}$/', $imageId) || !preg_match('/^\d{1,7}$/', $productId)) {
-            $_SESSION["notification"]["text"] = "wrong id format!";
-            $_SESSION["notification"]["icon"] = "error";
-            $_SESSION["notification"]["title"] = "Error!";
-            header("Location:../admin/product_list.php");
-            exit;
+        if (!preg_match('/^\d{1,7}$/', $imageId)) {
+
+            http_response_code(400);
+            echo json_encode([
+                "statusCode" => "400",
+                "error" => "Id format is bad!",
+            ]);
         }
 
         parent::__construct();
@@ -151,9 +152,7 @@ class ImageGalleryController extends ImageGallery
     {
 
         if (!$this->isValidOthers($imageId, $title)) {
-            // $_SESSION["notification"]["text"] = "All inputs are necessary. Please fill all fields.";
-            // $_SESSION["notification"]["icon"] = "error";
-            // $_SESSION["notification"]["title"] = "Error!";
+
             http_response_code(400);
             echo json_encode([
                 "statusCode" => "400",
@@ -167,7 +166,7 @@ class ImageGalleryController extends ImageGallery
 
             $imageName = $this->isImageValid($file, $productId);
         }
-     
+
         // sanitizing must be done.
         parent::__construct();
         return $this->update($imageId, $title, $imageName);

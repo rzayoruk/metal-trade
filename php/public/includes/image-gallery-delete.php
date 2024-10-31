@@ -11,20 +11,22 @@ use App\Controllers\Admin\ImageGalleryController;
 
 $obj = new ImageGalleryController;
 
-// echo $_GET["productId"] . $_GET["imageId"];
+// echo $_GET["imageId"];
 // exit;
 
-$isOK = $obj->deleteImage($_GET["imageId"], $_GET["productId"]);
+$isOK = $obj->deleteImage($_GET["imageId"]);
 
 if (!$isOK) {
-    $_SESSION["notification"]["title"] = "Error!";
-    $_SESSION["notification"]["text"] = "error is occured when deleted";
-    $_SESSION["notification"]["icon"] = "error";
-    header("Location:../admin/image_gallery.php?productId=" . $_GET['productId']);
+    http_response_code(404);
+    echo json_encode([
+        "statusCode" => "404",
+        "error" => "somethşng went wrong",
+    ]);
     exit;
 }
-$_SESSION["notification"]["title"] = "Success!";
-$_SESSION["notification"]["text"] = "Deleted successfully!";
-$_SESSION["notification"]["icon"] = "success";
-header("Location:../admin/image_gallery.php?productId=" . $_GET['productId']);
+
+echo json_encode([
+    "statusCode" => "200",
+    "success" => "Deleted successfully.",
+]);
 exit;

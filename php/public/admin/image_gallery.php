@@ -127,7 +127,6 @@ $(function () {
 
     if (isset($_SESSION["notification"])) {
         array_push($singles, "
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
     <script>
         Swal.fire({
             icon: " . "'" . $_SESSION["notification"]["icon"] . "'" . ",

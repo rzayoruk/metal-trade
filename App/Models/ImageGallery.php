@@ -129,7 +129,6 @@ class ImageGallery extends Database
             }
         }
 
-
         $sql = "DELETE from images WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $isOK = $stmt->execute([$imageId]);
