@@ -125,9 +125,6 @@ class CategoryController extends Category
         return $this->insert($parentId, $title, $imageName, $keywords, $description, $status, $slug);
     }
 
-    private function deleteCatImgGen($id) {
-
-    }
 
     public function deleteCategory($id)
     {

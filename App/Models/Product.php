@@ -105,30 +105,47 @@ class Product extends Database
         return $rows;
     }
 
-    protected function delete($id)
+    private function bringAllImages($id)
     {
-        //find image name first
-        $sql = "SELECT image FROM products WHERE id = ?";
+        $images = [];
+        $sql = "SELECT image FROM products WHERE id = ? "; //image of product of the category
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
-        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        array_push($images, $product["image"]);
+
+        $sql = "SELECT image FROM images WHERE product_id = ?;";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $imageGallery = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($imageGallery) {
+            foreach ($imageGallery as $image) {
+                array_push($images, $image["image"]);
+            }
+        }
+        return $images;
+    }
+
+    protected function delete($id)
+    {
+
+        $images = $this->bringAllImages($id);
 
 
-        if ($record["image"]) {
-            $path = __DIR__ . "/../../php/public/images/";
-            $imageFullPath = realpath($path . "/" . $record["image"]);
+        $path = __DIR__ . "/../../php/public/images/";
+        foreach ($images as $image) {
+
+            $imageFullPath = realpath($path . "/" . $image);
             if (file_exists($imageFullPath)) {
 
-                if (!unlink($imageFullPath)) {
-                    var_dump("selam");
-                    exit;
-
-                    return false;
-                }
+                unlink($imageFullPath);
             } else {
                 return false;
             }
         }
+
+
 
 
         $sql = "DELETE from products WHERE id = ?";
