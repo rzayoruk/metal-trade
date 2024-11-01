@@ -117,24 +117,69 @@ class Category extends Database
         return $rows;
     }
 
+    private function bringAllImages($catId, &$images = []) // includes current category img removing
+    {
+        //firstly delete productimg and  and productimg gallery if exist
+
+        $sql = "SELECT image from categories WHERE id = ? "; //image name of the category
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$catId]);
+        $category = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        array_push($images, $category["image"]);
+        $sql = "SELECT id, image from products WHERE category_id = ? "; //image of product of the category
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$catId]);
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($products) {
+
+            foreach ($products as $product) {
+                array_push($images, $product["image"]);
+                $sql = "SELECT image FROM images WHERE product_id = ?;";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute([$product["id"]]);
+                $imageGallery = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if ($imageGallery) {
+                    foreach ($imageGallery as $image) {
+                        array_push($images, $image["image"]);
+                    }
+                }
+            }
+        }
+
+
+
+        //then look for sub category
+        $sql = "SELECT id FROM categories WHERE parent_id = :parentId ;";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':parentId' => $catId]);
+        $subCats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($subCats) { //it has a subcategory
+
+            foreach ($subCats as $subCat) {
+                $this->bringAllImages($subCat["id"], $images);
+            }
+        }
+        return $images;
+    }
+
     protected function delete($id)
     {
-        // echo __DIR__;exit; /var/www/html/App/Models
-        //find image name first
-        $sql = "SELECT image FROM categories WHERE id = ?";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$id]);
-        $record = $stmt->fetch(PDO::FETCH_ASSOC);
-        $path = __DIR__ . "/../../php/public/images/";
+        $arr = [];
+        $images = $this->bringAllImages($id, $arr);
 
-        $imageFullPath = realpath($path . "/" . $record["image"]);
-        if (file_exists($imageFullPath)) {
-            if (!unlink($imageFullPath)) {
+        $path = __DIR__ . "/../../php/public/images/";
+        foreach ($images as $image) {
+            $imageFullPath = realpath($path . "/" . $image);
+            if (file_exists($imageFullPath)) {
+
+                unlink($imageFullPath);
+            } else {
                 return false;
-            }
-        } else {
-            return false;
+            } // move up this part later.
         }
+
 
 
         $sql = "DELETE from categories WHERE id = ?";
