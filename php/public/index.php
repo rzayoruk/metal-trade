@@ -13,9 +13,13 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>index</title>
+    <link href="assets/css/output.css" rel="stylesheet">
 </head>
 
 <body>
+    <h1 class="text-3xl font-bold underline">
+        Hello world!
+    </h1>
     public index.php <br>
 
     <?php if (isset($_SESSION["name"])): ?>
