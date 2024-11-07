@@ -53,14 +53,21 @@ module.exports = {
     },
 
     extend: {
-
+      backgroundSize: {
+        auto: "auto",
+        cover: "cover",
+        contain: "contain",
+        "50%": "50%",
+        16: "4rem",
+      },
 
       colors: {
         primary: "#101b20",
         secondary: "#E72F2A",
         accent3: "#cbcbcb",
         accent4: "#FAFAFA",
-        accent5: "#11191f",
+        accent5: "#1c272b",
+        accent6: "#cccccc",
       },
     },
   },

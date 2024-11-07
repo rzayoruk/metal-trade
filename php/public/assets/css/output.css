@@ -699,16 +699,8 @@ body{
   position: relative;
 }
 
-.-left-20{
-  left: -5rem;
-}
-
 .bottom-0{
   bottom: 0px;
-}
-
-.top-0{
-  top: 0px;
 }
 
 .left-0{
@@ -717,6 +709,10 @@ body{
 
 .right-0{
   right: 0px;
+}
+
+.top-0{
+  top: 0px;
 }
 
 .order-1{
@@ -750,6 +746,11 @@ body{
 .mx-3{
   margin-left: 0.75rem;
   margin-right: 0.75rem;
+}
+
+.mx-auto{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .my-3{
@@ -841,10 +842,6 @@ body{
   margin-top: 1.25rem;
 }
 
-.ml-10{
-  margin-left: 2.5rem;
-}
-
 .block{
   display: block;
 }
@@ -869,52 +866,52 @@ body{
   display: none;
 }
 
+.aspect-\[393\/455\]{
+  aspect-ratio: 393/455;
+}
+
 .aspect-\[8\/3\]{
   aspect-ratio: 8/3;
+}
+
+.aspect-\[848\/618\]{
+  aspect-ratio: 848/618;
 }
 
 .aspect-square{
   aspect-ratio: 1 / 1;
 }
 
-.aspect-\[\]{
-  aspect-ratio: ;
-}
-
-.aspect-\[393\/455\]{
-  aspect-ratio: 393/455;
-}
-
 .h-40{
   height: 10rem;
 }
 
-.h-\[800px\]{
-  height: 800px;
+.w-1\/5{
+  width: 20%;
 }
 
-.h-full{
-  height: 100%;
+.w-2\/6{
+  width: 33.333333%;
 }
 
-.w-1\/4{
-  width: 25%;
+.max-w-\[480px\]{
+  max-width: 480px;
 }
 
-.w-\[\]{
-  width: ;
+.max-w-\[750px\]{
+  max-width: 750px;
 }
 
-.w-\[455\]{
-  width: 455;
+.max-w-\[\]{
+  max-width: ;
 }
 
-.w-\[393px\]{
-  width: 393px;
+.max-w-\[300px\]{
+  max-width: 300px;
 }
 
-.w-full{
-  width: 100%;
+.max-w-\[280px\]{
+  max-width: 280px;
 }
 
 .transform{
@@ -937,6 +934,10 @@ body{
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
+.grid-cols-\[2fr_1fr_1fr_1fr\]{
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+}
+
 .flex-row{
   flex-direction: row;
 }
@@ -947,6 +948,14 @@ body{
 
 .items-center{
   align-items: center;
+}
+
+.justify-end{
+  justify-content: flex-end;
+}
+
+.justify-center{
+  justify-content: center;
 }
 
 .justify-between{
@@ -963,6 +972,14 @@ body{
        column-gap: 2rem;
 }
 
+.gap-y-1{
+  row-gap: 0.25rem;
+}
+
+.self-end{
+  align-self: flex-end;
+}
+
 .overflow-hidden{
   overflow: hidden;
 }
@@ -977,6 +994,10 @@ body{
 
 .rounded-md{
   border-radius: 0.375rem;
+}
+
+.rounded-sm{
+  border-radius: 0.125rem;
 }
 
 .rounded-t-md{
@@ -997,6 +1018,11 @@ body{
   border-color: rgb(203 203 203 / var(--tw-border-opacity));
 }
 
+.border-secondary{
+  --tw-border-opacity: 1;
+  border-color: rgb(231 47 42 / var(--tw-border-opacity));
+}
+
 .border-transparent{
   border-color: transparent;
 }
@@ -1006,11 +1032,6 @@ body{
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
-.bg-\[\#101b20\]{
-  --tw-bg-opacity: 1;
-  background-color: rgb(16 27 32 / var(--tw-bg-opacity));
-}
-
 .bg-\[\#fafafa\]{
   --tw-bg-opacity: 1;
   background-color: rgb(250 250 250 / var(--tw-bg-opacity));
@@ -1018,7 +1039,7 @@ body{
 
 .bg-accent5{
   --tw-bg-opacity: 1;
-  background-color: rgb(17 25 31 / var(--tw-bg-opacity));
+  background-color: rgb(28 39 43 / var(--tw-bg-opacity));
 }
 
 .bg-black{
@@ -1045,48 +1066,20 @@ body{
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-\[\]{
-  background-color: ;
-}
-
 .bg-\[url\(\'\/assets\/img\/42tb4et\.png\'\)\]{
   background-image: url('/assets/img/42tb4et.png');
 }
 
-.bg-\[url\(\'\/assets\/img\/welding_hero2\.png\'\)\]{
-  background-image: url('/assets/img/welding_hero2.png');
-}
-
-.bg-\[url\(\'\'\)\]{
-  background-image: url('');
-}
-
-.bg-\[url\(\'\/assets\'\)\]{
-  background-image: url('/assets');
-}
-
-.bg-\[url\(\'\/assets\/\'\)\]{
-  background-image: url('/assets/');
-}
-
-.bg-\[url\(\'\/assets\/img\/\'\)\]{
-  background-image: url('/assets/img/');
-}
-
-.bg-\[url\(\'\/assets\/img\/42tb\'\)\]{
-  background-image: url('/assets/img/42tb');
-}
-
-.bg-\[url\(\'\/assets\/img\/42tb4et\.\'\)\]{
-  background-image: url('/assets/img/42tb4et.');
-}
-
-.bg-\[url\(\'\/assets\/img\/53yj\.png\'\)\]{
-  background-image: url('/assets/img/53yj.png');
-}
-
 .bg-\[url\(\'\/assets\/img\/53yj53b\.png\'\)\]{
   background-image: url('/assets/img/53yj53b.png');
+}
+
+.bg-\[url\(\'\/assets\/img\/metal-texture-dark\.jpg\'\)\]{
+  background-image: url('/assets/img/metal-texture-dark.jpg');
+}
+
+.bg-\[url\(\'\/assets\/img\/welding_hero2\.png\'\)\]{
+  background-image: url('/assets/img/welding_hero2.png');
 }
 
 .bg-cover{
@@ -1095,22 +1088,6 @@ body{
 
 .bg-left{
   background-position: left;
-}
-
-.bg-left-top{
-  background-position: left top;
-}
-
-.bg-right{
-  background-position: right;
-}
-
-.bg-bottom{
-  background-position: bottom;
-}
-
-.bg-\[40\%\]{
-  background-position: 40%;
 }
 
 .bg-no-repeat{
@@ -1173,9 +1150,19 @@ body{
   padding-bottom: 0.625rem;
 }
 
+.py-20{
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
 .py-4{
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+
+.px-\[\]{
+  padding-left: ;
+  padding-right: ;
 }
 
 .pb-0{
@@ -1194,8 +1181,16 @@ body{
   padding-bottom: 0.5rem;
 }
 
+.pb-20{
+  padding-bottom: 5rem;
+}
+
 .pb-3{
   padding-bottom: 0.75rem;
+}
+
+.pb-6{
+  padding-bottom: 1.5rem;
 }
 
 .pl-2{
@@ -1238,8 +1233,8 @@ body{
   padding-top: 1.25rem;
 }
 
-.pb-20{
-  padding-bottom: 5rem;
+.pt-8{
+  padding-top: 2rem;
 }
 
 .text-left{
@@ -1252,6 +1247,10 @@ body{
 
 .text-right{
   text-align: right;
+}
+
+.text-end{
+  text-align: end;
 }
 
 .align-middle{
@@ -1283,6 +1282,10 @@ body{
   line-height: 1.75rem;
 }
 
+.font-medium{
+  font-weight: 500;
+}
+
 .font-normal{
   font-weight: 400;
 }
@@ -1293,6 +1296,18 @@ body{
 
 .uppercase{
   text-transform: uppercase;
+}
+
+.italic{
+  font-style: italic;
+}
+
+.leading-7{
+  line-height: 1.75rem;
+}
+
+.leading-6{
+  line-height: 1.5rem;
 }
 
 .text-accent3{
@@ -1320,40 +1335,17 @@ body{
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-accent6{
+  --tw-text-opacity: 1;
+  color: rgb(204 204 204 / var(--tw-text-opacity));
+}
+
 .opacity-10{
   opacity: 0.1;
 }
 
-.opacity-30{
-  opacity: 0.3;
-}
-
-.opacity-5{
-  opacity: 0.05;
-}
-
-.opacity-20{
-  opacity: 0.2;
-}
-
-.opacity-0{
-  opacity: 0;
-}
-
-.opacity-40{
-  opacity: 0.4;
-}
-
-.opacity-60{
-  opacity: 0.6;
-}
-
-.opacity-80{
-  opacity: 0.8;
-}
-
-.opacity-90{
-  opacity: 0.9;
+.opacity-15{
+  opacity: 0.15;
 }
 
 .shadow{
@@ -1403,6 +1395,19 @@ body{
 .hover\:text-secondary:hover{
   --tw-text-opacity: 1;
   color: rgb(231 47 42 / var(--tw-text-opacity));
+}
+
+.hover\:text-white:hover{
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.hover\:underline:hover{
+  text-decoration-line: underline;
+}
+
+.hover\:opacity-90:hover{
+  opacity: 0.9;
 }
 
 @media (min-width: 1024px){

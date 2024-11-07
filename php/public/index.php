@@ -17,14 +17,13 @@ session_start();
 </head>
 
 <body class="bg-[#fafafa]">
-    <header class="px-[4%] py-4 bg-[#101b20] text-white">
+    <header class="px-[4%] py-4 bg-primary text-white">
         <nav class="flex items-center justify-between">
             <h1 class="text-2xl"><a href="#">Meta<span class="text-secondary">Lunna</span></a></h1>
             <ul class="flex gap-x-8">
                 <li class="hover:text-secondary trantisition duration-300"><a href="">Kategoriler</a></li>
                 <li class="hover:text-secondary trantisition duration-300"><a href="">Hakkımızda</a></li>
                 <li class="hover:text-secondary trantisition duration-300"><a href="">Servisler</a></li>
-                <li class="hover:text-secondary trantisition duration-300"><a href="">Kataloglar</a></li>
                 <li class="hover:text-secondary trantisition duration-300"><a href="">İletişim</a></li>
             </ul>
             <a href="#" class="py-2.5 px-6 no-highlight border border-white lg:hover:bg-secondary lg:hover:border-secondary transition duration-200">Giriş Yap</a>
@@ -125,20 +124,84 @@ session_start();
     </section>
 
 
-    <section class="pb-16 bg-accent5 h-[800px] relative">
+    <section class="pb-16  py-20 relative bg-[url('/assets/img/metal-texture-dark.jpg')] bg-cover px-[4%]">
 
         <!-- bgimage left -->
-        <div class="aspect-[393/455] bg-[url('/assets/img/42tb4et.png')] absolute  bottom-0 bg-no-repeat w-[393px] bg-cover opacity-20">
+        <div class="aspect-[393/455] bg-[url('/assets/img/42tb4et.png')] absolute left-0 bottom-0 bg-no-repeat w-2/6 bg-cover opacity-15 max-w-[480px]">
         </div>
         <!-- bgimage right -->
-        <div class="aspect-[393/455] bg-[url('/assets/img/53yj53b.png')] absolute  top-0 right-0 bg-no-repeat w-[393px] bg-cover opacity-20">
+        <div class="aspect-[848/618] bg-[url('/assets/img/53yj53b.png')] absolute  top-0 right-0 bg-no-repeat w-1/5 bg-cover opacity-10">
+        </div>
+
+        <div class="text-white">
+            <h2 class="text-3xl text-center font-medium pb-6">Hakkımızda</h2>
+            <article class="max-w-[750px] mx-auto text-center text-lg leading-7">
+                Metalunna, 10 yıllık deneyimiyle metal parça tasarımı ve üretiminde sektörde kendine sağlam bir yer edinmiş, uzman bir firmadır. AutoCAD, SolidWorks ve CATIA gibi ileri teknoloji çizim programlarıyla, müşterilerinin ihtiyaçlarına uygun, yüksek hassasiyette teknik çizimler sunmaktadır. Hem tekil tasarımlar hem de seri üretime uygun çözümler sağlayarak, projelerin tüm aşamalarında kalite ve verimlilikten ödün vermeyen bir hizmet anlayışını benimsemektedir. <br><br> Metalunna, yalnızca metal parça tasarımı ve üretimiyle kalmayıp hammadde ve sac satışı da yaparak geniş bir ürün ve hizmet yelpazesi sunmaktadır. Yüksek kaliteli ham maddeler ve farklı ölçülerde sac tedariki sayesinde, müşterilerinin üretim süreçlerini eksiksiz desteklemeyi hedeflemektedir. Bu sayede Metalunna, tasarımdan üretime kadar tüm aşamalarda müşteri ihtiyaçlarına yönelik bütünsel bir çözüm ortağı olarak hizmet vermektedir. Metalunna, müşteri memnuniyeti ve kaliteli işçilik ile, metal parça üretimi konusunda güvenilir bir iş ortağı olmayı hedeflemektedir.
+            </article>
+            <div class="text-center pt-8">
+                <a href="#" class="py-2.5 px-6 border border-secondary bg-secondary transition duration-200 hover:opacity-90 text-xl rounded-sm">İletişim</a>
+            </div>
         </div>
     </section>
 
     <div class="h-40"></div>
 
+    <footer>
+        <div class="grid grid-cols-[2fr_1fr_1fr_1fr] py-20 px-[4%] bg-accent5 grid-flow-col text-white">
+            <div>
+                <h2 class=" text-xl mb-2"><a class="" href="#">Meta<span class="text-secondary">Lunna</span></a></h2>
+                <article class="text-accent6 max-w-[280px] leading-6 mb-2">Güçlü ve Dayanıklı Çözümler İçin Doğru Adres!</article>
+                <p class="text-accent6 max-w-[280px]">
+                    Australia-
+                    175 24th Street, Office 3567 Melbourn, EA 265
+                </p>
+            </div>
+            <div>
+                <h2 class="text-xl mb-2 text-secondary">Bağlantılar</h2>
+                <ul class="flex flex-col gap-y-1">
+                    <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">Anasayfa</a></li>
+                    <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">Hakkımızda</a></li>
+                    <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">Hizmetlerimiz</a></li>
+                    <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">İletişim</a></li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="text-xl mb-2 text-secondary">Servisler</h2>
+                <ul class="flex flex-col gap-y-1">
+                    <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">Anasayfa</a></li>
+                    <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">Hakkımızda</a></li>
+                    <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">Hizmetlerimiz</a></li>
+                    <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">İletişim</a></li>
+                </ul>
+            </div>
+            <div class="flex justify-end flex-col">
+                <div>
 
-    <?php if (isset($_SESSION["name"])): ?>
+                    <h2 class="text-xl mb-2 text-secondary">Sosyal Medya</h2>
+                    <ul class="flex flex-col gap-y-1">
+                        <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">Instagram</a></li>
+                        <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">Facebook</a></li>
+                        <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">X</a></li>
+                        <li class="text-accent6"><a class="hover:underline transition duration-300 hover:text-white" href="#">İletişim</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- deep -->
+
+        <div class="bg-primary flex justify-center px-[4%] py-2 text-accent6">
+            <div>
+                <small>&#169 2024 Metalunna. All Rights Reserved.</small>
+
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- <?php if (isset($_SESSION["name"])): ?>
         Welcome <?= $_SESSION["name"] ?>
         <a href="account.php">view my account</a>
         <a href="includes/logout.php">logout</a>
@@ -148,7 +211,7 @@ session_start();
     <?php else : ?>
         <a href="login.php">Login</a><br>
         <a href="signup.php">Sign Up</a>
-    <?php endif; ?>
+    <?php endif; ?> -->
 
 
 </body>
