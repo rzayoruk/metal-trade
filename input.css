@@ -12,3 +12,83 @@
     @apply antialiased;
   }
 }
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  column-gap: 12px;
+  background: #cbcbcb;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.nav > li {
+  cursor: pointer;
+}
+
+.nav li:has(.dropdown) {
+  position: relative;
+}
+
+.nav li a {
+  border-radius: 20px;
+  display: inline-block;
+  padding: 10px;
+}
+.nav li:hover > a {
+  background-color: antiquewhite;
+}
+
+.nav > li:has(.dropdown) > .dropdown {
+  padding-top: 18px;
+}
+
+.nav > li:has(ul) ul {
+  min-width: max-content;
+  background-color: #ededed;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+}
+
+.dropdown {
+  position: absolute;
+  display: none;
+}
+
+.nav > li:has(.dropdown):hover > .dropdown {
+  display: block;
+}
+.nav > li:has(.dropdown) > .dropdown {
+  padding-top: 18px;
+}
+
+.nav > li:has(.dropdown) > .dropdown::before {
+  content: "";
+  border: 8px solid transparent;
+  border-bottom: 8px solid #ededed;
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  display: block;
+}
+
+.dropdown > ul > li:has(.dropdown) > .dropdown {
+  top: 0;
+  left: calc(100%);
+  padding-top: 0px !important;
+  padding-left: 8px;
+}
+.dropdown .dropdown::before {
+  content: "";
+  border: 8px solid transparent;
+  border-right: 8px solid #ededed;
+  position: absolute;
+  top: 0px;
+  left: -8px;
+  display: block;
+}
+
+.dropdown > ul > li:has(.dropdown):hover > .dropdown {
+  display: block;
+}

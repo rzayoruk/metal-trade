@@ -882,8 +882,8 @@ body{
   aspect-ratio: 1 / 1;
 }
 
-.h-40{
-  height: 10rem;
+.h-\[700px\]{
+  height: 700px;
 }
 
 .w-1\/5{
@@ -894,24 +894,16 @@ body{
   width: 33.333333%;
 }
 
+.max-w-\[280px\]{
+  max-width: 280px;
+}
+
 .max-w-\[480px\]{
   max-width: 480px;
 }
 
 .max-w-\[750px\]{
   max-width: 750px;
-}
-
-.max-w-\[\]{
-  max-width: ;
-}
-
-.max-w-\[300px\]{
-  max-width: 300px;
-}
-
-.max-w-\[280px\]{
-  max-width: 280px;
 }
 
 .transform{
@@ -976,10 +968,6 @@ body{
   row-gap: 0.25rem;
 }
 
-.self-end{
-  align-self: flex-end;
-}
-
 .overflow-hidden{
   overflow: hidden;
 }
@@ -1020,7 +1008,7 @@ body{
 
 .border-secondary{
   --tw-border-opacity: 1;
-  border-color: rgb(231 47 42 / var(--tw-border-opacity));
+  border-color: rgb(231 47 26 / var(--tw-border-opacity));
 }
 
 .border-transparent{
@@ -1054,7 +1042,7 @@ body{
 
 .bg-secondary{
   --tw-bg-opacity: 1;
-  background-color: rgb(231 47 42 / var(--tw-bg-opacity));
+  background-color: rgb(231 47 26 / var(--tw-bg-opacity));
 }
 
 .bg-transparent{
@@ -1160,11 +1148,6 @@ body{
   padding-bottom: 1rem;
 }
 
-.px-\[\]{
-  padding-left: ;
-  padding-right: ;
-}
-
 .pb-0{
   padding-bottom: 0px;
 }
@@ -1249,10 +1232,6 @@ body{
   text-align: right;
 }
 
-.text-end{
-  text-align: end;
-}
-
 .align-middle{
   vertical-align: middle;
 }
@@ -1298,21 +1277,22 @@ body{
   text-transform: uppercase;
 }
 
-.italic{
-  font-style: italic;
+.leading-6{
+  line-height: 1.5rem;
 }
 
 .leading-7{
   line-height: 1.75rem;
 }
 
-.leading-6{
-  line-height: 1.5rem;
-}
-
 .text-accent3{
   --tw-text-opacity: 1;
   color: rgb(203 203 203 / var(--tw-text-opacity));
+}
+
+.text-accent6{
+  --tw-text-opacity: 1;
+  color: rgb(204 204 204 / var(--tw-text-opacity));
 }
 
 .text-black{
@@ -1327,17 +1307,12 @@ body{
 
 .text-secondary{
   --tw-text-opacity: 1;
-  color: rgb(231 47 42 / var(--tw-text-opacity));
+  color: rgb(231 47 26 / var(--tw-text-opacity));
 }
 
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-accent6{
-  --tw-text-opacity: 1;
-  color: rgb(204 204 204 / var(--tw-text-opacity));
 }
 
 .opacity-10{
@@ -1392,9 +1367,94 @@ body{
   transition-duration: 300ms;
 }
 
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
+  background: #cbcbcb;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.nav > li {
+  cursor: pointer;
+}
+
+.nav li:has(.dropdown) {
+  position: relative;
+}
+
+.nav li a {
+  border-radius: 20px;
+  display: inline-block;
+  padding: 10px;
+}
+
+.nav li:hover > a {
+  background-color: antiquewhite;
+}
+
+.nav > li:has(.dropdown) > .dropdown {
+  padding-top: 18px;
+}
+
+.nav > li:has(ul) ul {
+  min-width: -moz-max-content;
+  min-width: max-content;
+  background-color: #ededed;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+}
+
+.dropdown {
+  position: absolute;
+  display: none;
+}
+
+.nav > li:has(.dropdown):hover > .dropdown {
+  display: block;
+}
+
+.nav > li:has(.dropdown) > .dropdown {
+  padding-top: 18px;
+}
+
+.nav > li:has(.dropdown) > .dropdown::before {
+  content: "";
+  border: 8px solid transparent;
+  border-bottom: 8px solid #ededed;
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  display: block;
+}
+
+.dropdown > ul > li:has(.dropdown) > .dropdown {
+  top: 0;
+  left: calc(100%);
+  padding-top: 0px !important;
+  padding-left: 8px;
+}
+
+.dropdown .dropdown::before {
+  content: "";
+  border: 8px solid transparent;
+  border-right: 8px solid #ededed;
+  position: absolute;
+  top: 0px;
+  left: -8px;
+  display: block;
+}
+
+.dropdown > ul > li:has(.dropdown):hover > .dropdown {
+  display: block;
+}
+
 .hover\:text-secondary:hover{
   --tw-text-opacity: 1;
-  color: rgb(231 47 42 / var(--tw-text-opacity));
+  color: rgb(231 47 26 / var(--tw-text-opacity));
 }
 
 .hover\:text-white:hover{
@@ -1413,11 +1473,11 @@ body{
 @media (min-width: 1024px){
   .lg\:hover\:border-secondary:hover{
     --tw-border-opacity: 1;
-    border-color: rgb(231 47 42 / var(--tw-border-opacity));
+    border-color: rgb(231 47 26 / var(--tw-border-opacity));
   }
 
   .lg\:hover\:bg-secondary:hover{
     --tw-bg-opacity: 1;
-    background-color: rgb(231 47 42 / var(--tw-bg-opacity));
+    background-color: rgb(231 47 26 / var(--tw-bg-opacity));
   }
 }

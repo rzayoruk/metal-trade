@@ -144,7 +144,36 @@ session_start();
         </div>
     </section>
 
-    <div class="h-40"></div>
+    <div class="h-[700px] pt-8 flex justify-center">
+        <nav>
+            <ul class="nav">
+                <li><a href="#">Anasayfa</a></li>
+                <li><a href="#">Hizmetler</a></li>
+                <li>
+                    <a href="#">Kategoriler</a>
+                    <div class="dropdown">
+                        <ul>
+                            <li><a href="#">Raw Material</a></li>
+                            <li>
+                                <a href="#">Jewelery</a>
+                                <div class="dropdown">
+                                    <ul>
+                                        <li><a href="#">Necklace</a></li>
+                                        <li><a href="#">Ring</a></li>
+                                        <li><a href="#">Watch</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="#">Cutting</a></li>
+                        </ul>
+                    </div>
+
+                </li>
+                <li><a href="#">İletişim</a></li>
+            </ul>
+        </nav>
+
+    </div>
 
     <footer>
         <div class="grid grid-cols-[2fr_1fr_1fr_1fr] py-20 px-[4%] bg-accent5 grid-flow-col text-white">
